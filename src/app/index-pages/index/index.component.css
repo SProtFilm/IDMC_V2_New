@@ -1,0 +1,84 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  transform: translateY(-50%);
+}
+
+.title h1 {
+  font-size: 2rem; /* Adjust the font size as needed */
+}
+
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+.toolbar-image {
+  height: 40px; /* Adjust the height as needed */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+#shift-right {
+  margin-left: 80px; /* Adjust the margin to shift the image to the right */
+}
+
+.content {
+  padding: 18px;
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 64px);
+}
+
+.large-icon {
+  font-size: 24px; /* Increase this value as needed */
+}
+
+.head-index-container {
+  /* position: fixed; */
+  top: 64px; /* Adjust this value to your toolbar height */
+  z-index: 1000; /* Ensure head-regis is above other content */
+  background-color: rgb(255, 255, 255);
+  width: 60%;
+  margin-top: 10px;
+  margin-left: 20%;
+  margin-right: 2%;
+  box-shadow: 0 10px 15px rgba(23, 62, 238, 0.358);
+}
+
+/* Adjustments for the content to avoid overlap */
+.content {
+  padding-top: 80px; /* Adjust this value to your toolbar height + some padding */
+}
+
+/* Ensure that app-side-bar is above other content */
+app-side-bar {
+  position: relative;
+  z-index: 1100; /* Higher z-index than head-regis */
+}
+
+.document-list-container {
+  display: flex;
+  justify-content: flex-start; /* Aligns items to the right */
+  gap: 16px; /* Adds space between the document lists */
+  padding: 16px; /* Adds padding around the container */
+  margin-left: 20px;
+}

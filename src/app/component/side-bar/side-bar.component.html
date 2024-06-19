@@ -1,0 +1,29 @@
+<div [ngClass]="{'sidebar-closed': isSidebarClosed, 'sidebar-open': !isSidebarClosed, 'bg-custom-gradient': true, 'sidebar-disabled': isDialogOpen}" 
+     class="sidebar-container" 
+     *ngIf="!isSidebarHidden">
+    <header>
+        <div class="flex gap-4 items-center pt-6 pl-8 cursor-pointer" (click)="toggleSidebar()">
+            <img src="assets/sidebar/menu.png" class="w-8"/>
+            <span class="text-xs text-white" *ngIf="!isSidebarClosed">IDMC</span>
+        </div>
+    </header>
+    <main>
+        <app-custom-sidenav [isSidebarClosed]="isSidebarClosed"></app-custom-sidenav>
+    </main>
+    <footer class="absolute bottom-0 pb-5 w-full transition-opacity" [ngClass]="{'opacity-0': isSidebarClosed, 'opacity-100': !isSidebarClosed}">
+        <div class="pl-10" *ngIf="!isSidebarClosed"> 
+            <h1 class="pt-2 text-white text-xs">ชื่อผู้ใช้:</h1>
+            <h1 class="text-gray-400 text-xs">CBLXXXXXX</h1>
+            <h1 class="pt-2 text-white text-xs">แผนก:</h1>
+            <h1 class="text-gray-400 text-xs">XXXXXXXXXXXX</h1>
+            <h1 class="pt-2 text-white text-xs">สถานที่:</h1>
+            <h1 class="text-gray-400 text-xs">XXXXXXXXXXXX</h1>
+            <h1 class="pt-2 text-white text-xs">วันที่/เวลา:</h1>
+            <h1 class="text-white text-xs">01/01/1111_XX:XX</h1>
+        </div>
+    </footer>
+</div>
+<!-- Menu button that remains visible -->
+<div class="fixed top-0 left-0 z-50 bg-custom-gradient p-4 cursor-pointer" (click)="toggleSidebar()" *ngIf="isSidebarHidden || isSidebarClosed">
+    <img src="assets/sidebar/menu.png" class="w-13"/>
+</div>

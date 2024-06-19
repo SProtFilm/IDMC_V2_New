@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(180deg, #1e3a8a, #3b82f6);
+  transition: width 0.3s ease;
+}
+
+.sidebar-open {
+  width: 18rem; /* 72px */
+}
+
+.sidebar-closed {
+  width: 3rem; /* 12px */
+}
+
+.transition-opacity {
+  transition: opacity 0.3s ease;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+.toolbar-image {
+    height: 40px; /* Adjust the height as needed */
+    width: auto; /* Maintain aspect ratio */
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  #shift-right {
+    margin-left: 80px; /* Adjust the margin to shift the image to the right */
+  }
+  
+  

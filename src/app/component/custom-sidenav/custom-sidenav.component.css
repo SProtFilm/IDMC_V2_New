@@ -1,0 +1,70 @@
+/* mat-nav-list {
+    background-color: #273499;
+}
+
+
+
+a {
+    margin: 16px 0 16px 0;
+}
+
+
+.menu-item-content {
+    display: flex;
+    align-items: center;
+    min-height: 48px; 
+  }
+
+.icon {
+    width: 32px;
+    margin-right: 16px;
+}
+
+span {
+    color: white;
+    font-size: 14px;
+    font-family: Roboto;
+} */
+
+/*  */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.transition-opacity {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.opacity-100 {
+    opacity: 1;
+}
+
+.toolbar-image {
+    height: 40px; /* Adjust the height as needed */
+    width: auto; /* Maintain aspect ratio */
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  #shift-right {
+    margin-left: 80px; /* Adjust the margin to shift the image to the right */
+  }
+  
+  .hidden {
+    display: none;
+  }
+  .transition-width {
+    transition: width 0.3s;
+  }
+  .transition-opacity {
+    transition: opacity 0.3s;
+  }
+  
+  

@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="bg-blue-200 p-2 rounded-t border border-blue-500">
+      <h1 class="text-blue-800 text-lg font-semibold">Selected List</h1>
+    </div>
+    <div class="flex space-x-4 items-center bg-white p-4 border-t border-blue-500">
+      <button mat-stroked-button >ยกเลิกรายการเอกสาร</button>
+    </div>
+    <div class="table-container overflow-x-auto border border-blue-500 rounded-b">
+      <div class="overflow-auto max-h-60">
+        <table class="min-w-full bg-white border border-collapse border-blue-500">
+          <thead class="sticky top-0 bg-blue-600 text-white">
+            <tr>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  ลำดับ
+                </div>
+              </th>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  เลือก
+                </div>
+              </th>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  แหล่งที่มา
+                </div>
+              </th>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  AL No.
+                </div>
+              </th>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  AC No.
+                </div>
+              </th>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  บัญชีรายวัน
+                </div>
+              </th>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  LG No.
+                </div>
+              </th>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  Standby LC No.
+                </div>
+              </th>
+              <th class="py-2 px-4 border border-blue-500">
+                <div class="flex items-center justify-center">
+                  <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
+                  Teletrade No.
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+            <tr class="text-center odd:bg-gray-100 even:bg-gray-200" *ngFor="let item of items" cdkDrag>
+              <td class="py-2 px-4 border border-blue-500">{{ item.id }}</td>
+              <td class="py-2 px-4 border border-blue-500">
+                <input type="checkbox" class="form-checkbox" [(ngModel)]="item.selected">
+              </td>
+              <td class="py-2 px-4 border border-blue-500">{{ item.docSource }}</td>
+              <td class="py-2 px-4 border border-blue-500">{{ item.alNo }}</td>
+              <td class="py-2 px-4 border border-blue-500">{{ item.acNo }}</td>
+              <td class="py-2 px-4 border border-blue-500">{{ item.dailyJournal }}</td>
+              <td class="py-2 px-4 border border-blue-500">{{ item.lgNo }}</td>
+              <td class="py-2 px-4 border border-blue-500">{{ item.standbyLCNo }}</td>
+              <td class="py-2 px-4 border border-blue-500">{{ item.teletradeNo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="flex justify-end mt-4">
+    <button class="bg-green-500 text-white py-2 px-4 rounded mr-2">เพิ่ม</button>
+  </div>
+  

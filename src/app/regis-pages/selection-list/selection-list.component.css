@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  max-width: 1440px; /* Adjust the max-width to your desired perfect length */
+  margin: 0 auto;
+}
+
+.table-container {
+  max-height: 500px; /* Adjust this value as needed */
+  overflow-y: auto;
+}
+
+.min-w-full {
+  width: 100%;
+}
+
+.bg-blue-600 {
+  background-color: #1E3A8A;
+}
+
+.text-white {
+  color: #FFFFFF;
+}
+
+.border-blue-500 {
+  border-color: #3B82F6;
+}
+
+.odd\:bg-gray-100:nth-child(odd) {
+  background-color: #F7FAFC;
+}
+
+.even\:bg-gray-200:nth-child(even) {
+  background-color: #EDF2F7;
+}
+
+.form-checkbox {
+  /* Customize checkbox appearance if needed */
+}
+
+.custom-dialog-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh; /* Adjust based on your needs */
+  overflow-y: auto;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}

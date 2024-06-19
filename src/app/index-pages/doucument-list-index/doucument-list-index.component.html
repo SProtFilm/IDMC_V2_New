@@ -1,0 +1,117 @@
+<div class="main-content">
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>รายการเอกสาร</legend>
+      <div class="blox">
+        <!-- Document Tree goes here -->
+        <ul>
+          <li *ngFor="let node of treeData">
+            <div class="node-container">
+              <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
+                {{ node.expanded ? "-" : "+" }}
+              </button>
+              <input
+                #checkboxes
+                type="checkbox"
+                [(ngModel)]="node.checked"
+                (change)="onCheckboxChange(node)"
+              />
+              <mat-icon>{{
+                node.type === "folder" ? "folder" : "description"
+              }}</mat-icon>
+              <span
+                class="node-name"
+                [ngClass]="{
+                  folder: node.type === 'folder',
+                  file: node.type === 'file'
+                }"
+              >
+                {{ node.name }}
+              </span>
+            </div>
+            <ul *ngIf="node.type === 'folder' && node.expanded">
+              <ng-container
+                *ngTemplateOutlet="
+                  treeTemplate;
+                  context: { $implicit: node.children }
+                "
+              ></ng-container>
+            </ul>
+          </li>
+        </ul>
+        <ng-template #treeTemplate let-treeData>
+          <ul>
+            <li *ngFor="let node of treeData">
+              <div class="node-container">
+                <button
+                  (click)="toggleNode(node)"
+                  *ngIf="node.type === 'folder'"
+                >
+                  {{ node.expanded ? "-" : "+" }}
+                </button>
+                <input
+                  #checkboxes
+                  type="checkbox"
+                  [(ngModel)]="node.checked"
+                  (change)="onCheckboxChange(node)"
+                />
+                <mat-icon>{{
+                  node.type === "folder" ? "folder" : "description"
+                }}</mat-icon>
+                <span
+                  class="node-name"
+                  [ngClass]="{
+                    folder: node.type === 'folder',
+                    file: node.type === 'file'
+                  }"
+                >
+                  {{ node.name }}
+                </span>
+              </div>
+              <ul *ngIf="node.type === 'folder' && node.expanded">
+                <ng-container
+                  *ngTemplateOutlet="
+                    treeTemplate;
+                    context: { $implicit: node.children }
+                  "
+                ></ng-container>
+              </ul>
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+      <div class="buttons">
+        <div class="button-row">
+          <button class="btn">
+            <span class="btn-icon"
+              ><img
+                src="./assets/scanner/previousPage.png"
+                alt="Previous" /></span
+            >ย้อนกลับ
+          </button>
+          <button class="btn">
+            หน้าต่อไป<span class="btn-icon"
+              ><img src="./assets/scanner/nextPage.png" alt="Next"
+            /></span>
+          </button>
+        </div>
+        <div class="button-row1">
+          <button class="btn">หมายเหตุ</button>
+          <button class="btn">รายละเอียดหมายเหตุ</button>
+          <button class="btn">ข้อมูล Batch</button>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<fieldset class="docall1">
+  <legend>ยอดรวมเอกสาร</legend>
+
+  <div class="xxx">
+  <button class="vvv">Indexes ของ case</button>
+  <button class="vvv">Indexes ของ Documents</button>
+  </div>
+</fieldset>
+
+

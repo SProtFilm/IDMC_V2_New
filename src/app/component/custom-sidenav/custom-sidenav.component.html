@@ -1,0 +1,30 @@
+    <div class="pt-8 pl-8" [ngClass]="{'hidden': isSidebarClosed}">
+      <div [ngClass]="{'w-56': !isSidebarClosed, 'w-8': isSidebarClosed}" class="bg-white h-1 transition-width duration-300"></div>
+    </div>
+    <ul>
+      <li *ngFor="let item of menuItem()">
+        <a [routerLink]="item.route" routerLinkActive="active-link">
+          <div class="menu-item-content flex pt-4 pl-8">
+            <img [src]="item.icon" alt="{{ item.icon }}" class="icon w-8">
+            <span class="pl-6 self-center text-xs text-white transition-opacity" 
+                  [ngClass]="{'opacity-0': isSidebarClosed, 'opacity-100': !isSidebarClosed}">
+              {{ item.label }}
+            </span>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <div class="pt-8 pl-8" [ngClass]="{'hidden': isSidebarClosed}">
+      <div class="bg-white h-1 transition-width duration-300" [ngClass]="{'w-56': !isSidebarClosed, 'w-8': isSidebarClosed}"></div>
+    </div>
+    <a href="signin" class="pl-5 self-center text-xs text-white transition-opacity" 
+       [ngClass]="{'hidden': isSidebarClosed}">
+      <div class="menu-item-content flex pt-4 pl-9">
+        <img src="assets/sidebar/logout.png" alt="logout" class="icon w-8">
+        <span class="pl-5 self-center text-xs text-white transition-opacity" 
+              [ngClass]="{'opacity-0': isSidebarClosed, 'opacity-100': !isSidebarClosed}">
+          Logout
+        </span>
+      </div>
+    </a>
+    

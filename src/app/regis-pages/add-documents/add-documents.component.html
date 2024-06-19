@@ -1,0 +1,87 @@
+<div class="example-form mt-10 p-4">
+    <div class="scrollable-content mb-8 bg-white rounded"> 
+      <!-- Header -->
+      <div class="bg-blue-700 text-white p-2 rounded-t">
+        <h2 class="text-lg">สร้างรายการเอกสารโดยกลุ่มเอกสาร Case</h2>
+      </div>
+      <div class="p-4 rounded-b">
+        <label for="documentGroup" class="block text-gray-700">กลุ่มเอกสาร :</label>
+        <select id="documentGroup" class="mt-1 block w-full rounded py-2 px-3 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+          <!-- Options here -->
+        </select>
+      </div>
+  
+      <!-- Document List -->
+      <div class="mt-6">
+        <div class="bg-blue-700 text-white p-2 rounded-t">
+          <h3 class="text-lg">รายการเอกสาร</h3>
+        </div>
+        <div class="p-4 rounded-b">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border px-4 py-2">ลำดับ</th>
+                <th class="border px-4 py-2">รหัสเอกสาร</th>
+                <th class="border px-4 py-2">ชื่อเอกสาร (อังกฤษ)</th>
+                <th class="border px-4 py-2">ชื่อเอกสาร (ไทย)</th>
+                <th class="border px-4 py-2">จำนวนหน้า</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Repeat for each document -->
+              <tr>
+                <td class="border px-4 py-2 text-center"><input type="checkbox"></td>
+                <td class="border px-4 py-2 text-center">xxxx</td>
+                <td class="border px-4 py-2 text-center">Lorem Ipsum</td>
+                <td class="border px-4 py-2 text-center">ลอเร็ม อิปซัม</td>
+                <td class="border px-4 py-2 text-center">1</td>
+              </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+          <div class="flex justify-end mt-4">
+            <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">เพิ่ม</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Selected Documents -->
+      <div class="mt-6">
+        <div class="bg-blue-700 text-white p-2 rounded-t">
+          <h3 class="text-lg">เอกสารที่จะถูกเลือก</h3>
+        </div>
+        <div class="p-4 rounded-b">
+          <div class="flex justify-end mb-4">
+            <button class="bg-yellow-500 text-white py-2 px-4 rounded mr-2">ลบ</button>
+          </div>
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border px-4 py-2">ลำดับ</th>
+                <th class="border px-4 py-2">รหัสเอกสาร</th>
+                <th class="border px-4 py-2">ชื่อเอกสาร (อังกฤษ)</th>
+                <th class="border px-4 py-2">ชื่อเอกสาร (ไทย)</th>
+                <th class="border px-4 py-2">จำนวนหน้า</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Repeat for each selected document -->
+              <tr>
+                <td class="border px-4 py-2 text-center"><input type="checkbox"></td>
+                <td class="border px-4 py-2 text-center">xxxx</td>
+                <td class="border px-4 py-2 text-center">Lorem Ipsum</td>
+                <td class="border px-4 py-2 text-center">ลอเร็ม อิปซัม</td>
+                <td class="border px-4 py-2 text-center">1</td>
+              </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+          <div class="flex justify-end mt-4">
+            <button class="bg-green-500 text-white py-2 px-4 rounded mr-2">ตกลง</button>
+            <button (click)="onCancel()" class="bg-red-500 text-white py-2 px-4 rounded">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

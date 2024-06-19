@@ -1,0 +1,69 @@
+<div class="p-4 bg-gray-50">
+    <div class="border border-blue-900 rounded-lg">
+    <div class="flex items-center bg-blue-900 text-white p-3 rounded-t-lg">
+      <h1 class="text-xl font-bold">Document Copy / Replace</h1>
+    </div>
+  
+    <div class="flex items-center text-black space-x-4 p-3 rounded-t-lg">
+      <label class="inline-flex items-center">
+        <input type="radio" class="form-radio text-blue-600" name="level" [(ngModel)]="selectedLevel" value="case">
+        <span class="ml-2">ระดับ Case</span>
+      </label>
+      <label class="inline-flex items-center">
+        <input type="radio" class="form-radio text-blue-600" name="level" [(ngModel)]="selectedLevel" value="document">
+        <span class="ml-2">ระดับเอกสาร</span>
+      </label>
+    </div>
+  
+    <div class="overflow-x-auto">
+      <table class="min-w-full border border-gray-200 bg-gray-100">
+        <thead class="bg-blue-900 text-white">
+          <tr>
+            <th class="py-2 px-4 border-b border-gray-200">เลือก</th>
+            <th class="py-2 px-4 border-b border-gray-200">ลำดับ case</th>
+            <th class="py-2 px-4 border-b border-gray-200">เอกสารลำดับที่</th>
+            <th class="py-2 px-4 border-b border-gray-200">ชื่อเอกสาร (ไทย)</th>
+            <th class="py-2 px-4 border-b border-gray-200">แหล่งที่มา</th>
+            <th class="py-2 px-4 border-b border-gray-200">จำนวนหน้า</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-gray-50">
+            <td class="py-2 px-4 border-b border-gray-200 text-center">
+              <input type="checkbox" class="form-checkbox">
+            </td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">1</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">1</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">ลอเร็ม อิพซัม</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">Paper</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">1</td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="py-2 px-4 border-b border-gray-200 text-center">
+              <input type="checkbox" class="form-checkbox">
+            </td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">1</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">2</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">ลอเร็ม อิพซัม</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">Paper</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">1</td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="py-2 px-4 border-b border-gray-200 text-center">
+              <input type="checkbox" class="form-checkbox">
+            </td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">1</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">1</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">ลอเร็ม อิพซัม</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">Paper</td>
+            <td class="py-2 px-4 border-b border-gray-200 text-center">1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="flex justify-end mt-4 space-x-4">
+    <button class="bg-lime-300 text-gray-900 font-bold py-2 px-4 rounded">ตกลง</button>
+    <button (click)="onCancel()" class="bg-red-500 text-white py-2 px-4 rounded">ยกเลิก</button>
+  </div>
+</div>

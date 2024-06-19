@@ -1,0 +1,58 @@
+/* mat-toolbar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar-image {
+    height: 40px; 
+  }
+
+  .content {
+    padding: 18px;
+  }
+
+  mat-sidenav-container {
+    height: calc(100vh - 64px);
+  }
+
+  .large-icon {
+    font-size: 24px;
+  }
+   */
+
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   
+   .transition-opacity {
+       transition: opacity 0.3s ease-in-out;
+   }
+   
+   .opacity-0 {
+       opacity: 0;
+   }
+   
+   .opacity-100 {
+       opacity: 1;
+   }
+   
+   .toolbar-image {
+       height: 40px; /* Adjust the height as needed */
+       width: auto; /* Maintain aspect ratio */
+     }
+     
+     .spacer {
+       flex: 1 1 auto;
+     }
+   
+     #shift-right {
+       margin-left: 80px; /* Adjust the margin to shift the image to the right */
+     }
+     
+     

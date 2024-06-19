@@ -1,0 +1,26 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  .button-container button {
+    margin: 2px;
+    flex: none;
+    white-space: nowrap;
+    width: 10%; 
+    height: 55px;
+    border: 1px solid;
+  }
+
+  .separator {
+    height: 30px;
+    width: 1px;
+    background-color: black;
+    margin: 0 10px;
+}

@@ -1,0 +1,28 @@
+<!-- <mat-toolbar class="mat-elevation-z3">
+    <button mat-icon-button (click)="collapsed.set(!collapsed())">
+      <mat-icon class="large-icon">menu</mat-icon>
+    </button>
+    <a href="signin"><img src="./assets/bangkok_bank.png" alt="BangkokBank" class="toolbar-image"></a>
+    <div class="spacer"></div>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+
+      <app-custom-sidenav [collapsed]="collapsed()"/>
+    </mat-sidenav>
+    <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+
+    </mat-sidenav-content>
+  </mat-sidenav-container> -->
+  
+<!--  -->
+
+<mat-toolbar class="mat-elevation-z3">
+  <a href="signin">
+      <img src="assets/toolbar/bangkok_bank.png" alt="BangkokBank" class="toolbar-image" id="shift-right">
+  </a>
+  <div class="spacer"></div>
+  </mat-toolbar>
+
+<app-side-bar/>   
