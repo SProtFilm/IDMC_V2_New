@@ -1,3 +1,20 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  transform: translateY(-50%);
+}
+
+.title h1 {
+  font-size: 2rem; /* Adjust the font size as needed */
+}
+
 .transition-opacity {
   transition: opacity 0.3s ease-in-out;
 }
@@ -23,41 +40,55 @@
   margin-left: 80px; /* Adjust the margin to shift the image to the right */
 }
 
-  .content {
-    padding: 18px;
-  }
+.content {
+  padding: 18px;
+}
 
-  mat-sidenav-container {
-    height: calc(100vh - 64px);
-  }
+mat-sidenav-container {
+  height: calc(100vh - 64px);
+}
 
-  .large-icon {
-    font-size: 24px; /* Increase this value as needed */
-  }
+.large-icon {
+  font-size: 24px; /* Increase this value as needed */
+}
 
-  .head-regis-container {
-    position: fixed;
-    top: 64px; /* Adjust this value to your toolbar height */
-    left: 0;
-    right: 0;
-    z-index: 1000; /* Ensure head-regis is above other content */
-    background-color: rgb(255, 255, 255);
-    width: 80%;
-    margin-top: 10px;
-    margin-left: 10%;
-    margin-right: 5%;
-    box-shadow: 0 10px 15px rgba(23, 62, 238, 0.358);
-  }
-  
-  /* Adjustments for the content to avoid overlap */
-  .content {
-    padding-top: 80px; /* Adjust this value to your toolbar height + some padding */
-  }
-  
-  /* Ensure that app-side-bar is above other content */
-  app-side-bar {
-    position: relative;
-    z-index: 1100; /* Higher z-index than head-regis */
-  }
+.head-regis-container {
+  /* position: fixed; */
+  top: 64px; /* Adjust this value to your toolbar height */
+  z-index: 1000; /* Ensure head-regis is above other content */
+  background-color: rgb(255, 255, 255);
+  width: 90%;
+  margin-top: 10px;
+  margin-left: 5%;
+  margin-right: 2%;
+  box-shadow: 0 10px 15px rgba(23, 62, 238, 0.358);
+}
+
+/* Adjustments for the content to avoid overlap */
+.content {
+  padding-top: 80px; /* Adjust this value to your toolbar height + some padding */
+}
+
+/* Ensure that app-side-bar is above other content */
+app-side-bar {
+  position: relative;
+  z-index: 1100; /* Higher z-index than head-regis */
+}
+
+/* New Styles for regis-process Alignment */
+.regis-process {
+  display: flex;
+  justify-content: flex-start; /* Aligns items to the right */
+  gap: 16px; /* Adds space between the regis-process */
+  padding: 16px; /* Adds padding around the container */
+}
+
+.container{
+  margin-left: 120px;
+}
+
+.create-by-case{
+  margin-left: 20px;
+}
 
 

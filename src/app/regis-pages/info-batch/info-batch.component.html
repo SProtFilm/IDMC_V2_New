@@ -1,30 +1,37 @@
-<div class="example-form mt-10 p-4 custom-border">
-  <h3 class="text-lg font-semibold text-blue-900">ข้อมูล Batch</h3>
-  
-  <div class="mt-4 flex items-center space-x-4">
-    <div class="w-1/2">
-      <label for="batchId" class="block text-sm font-medium text-gray-700">เลขที่ Batch</label>
-      <input id="batchId" matInput [readonly]="true" [formControl]="batchIdControl"
-        class="mt-1 block w-full px-2 py-2 border border-indigo-500 rounded-md shadow focus:outline-none focus:ring-indigo-500 
-        focus:border-indigo-500 sm:text-sm" placeholder="เลขที่ Batch">
-    </div>
-    <div class="flex items-center mt-6 ml-4">
-      <input id="registerCheckbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-      <label for="registerCheckbox" class="ml-2 block text-sm text-gray-900">กลับมาลงทะเบียนใหม่</label>
-    </div>
-  </div>
-
-  <div class="mt-4 flex items-center">
-    <input id="caseCheckbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-    <label for="caseCheckbox" class="ml-2 block text-sm text-gray-900">ใช้ใบคั้นระหว่าง Case</label>
-  </div>
-  
-  <div class="mt-4 flex items-center">
-    <input id="documentCheckbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-    <label for="documentCheckbox" class="ml-2 block text-sm text-gray-900">ใช้ใบคั้นระหว่างเอกสาร</label>
-  </div>
-  
-  <div class="flex justify-end mt-4">
-    <button class="bg-green-500 text-white py-2 px-4 rounded mr-2">ตกลง</button>
+<div class="main-content">
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>ข้อมูล Batch</legend>
+      <div class="form-container">
+        <div class="form-group">
+          <div class="batch-info">
+            <label for="batchId" class="batch-num">เลขที่ Batch :</label>
+            <input id="batchId" matInput [readonly]="true" [formControl]="batchIdControl" placeholder="เลขที่ Batch"/>
+          </div>
+          <label class="custom-checkbox checkbox-group-btwCase">
+            <input type="checkbox" id="between-cases">
+            <span class="checkmark"></span>
+            <div class="txt-check">ใช้ในคั่นระหว่าง Case</div>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="custom-checkbox checkbox-group">
+            <input type="checkbox" id="new-registration">
+            <span class="checkmark"></span>
+            <div class="txt-check">กลับมาลงทะเบียนใหม่</div>
+          </label>
+          <label class="custom-checkbox checkbox-group-btwDoc">
+            <input type="checkbox" id="between-docs">
+            <span class="checkmark"></span>
+            <div class="txt-check">ใช้ในคั่นระหว่างเอกสาร</div>
+          </label>
+        </div>
+        <div class="button-container">
+          <button class="ok">ตกลง</button>
+        </div>
+      </div>
+    </fieldset>
   </div>
 </div>
+
+<app-info-case></app-info-case>

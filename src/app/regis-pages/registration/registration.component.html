@@ -1,25 +1,36 @@
 <mat-toolbar class="mat-elevation-z3">
   <a href="signin">
-      <img src="assets/toolbar/bangkok_bank.png" alt="BangkokBank" class="toolbar-image" id="shift-right">
+    <img
+      src="assets/toolbar/bangkok_bank.png"
+      alt="BangkokBank"
+      class="toolbar-image"
+      id="shift-right"
+    />
   </a>
-  <div class="spacer"></div>
-  </mat-toolbar>
-    <!-- head-regis -->
-    <div class="head-regis-container">
-      <app-head-regis ></app-head-regis>
+  <div class="title-container">
+    <div class="title">
+      <h1>Registration</h1>
     </div>
+  </div>
+  <div class="spacer"></div>
+</mat-toolbar>
+
+  <!-- head-regis -->
+  <div class="head-regis-container">
+    <app-head-regis></app-head-regis>
+  </div>
+
+<div class="container">
+  <div class="regis-process">
     <!-- ข้อมูล batch -->
     <app-info-batch></app-info-batch>
     <!-- ข้อมูลเคส -->
-    <mat-grid-list cols="1" rowHeight="3:1">
-      <app-info-case></app-info-case>
-    </mat-grid-list>
-    <!-- สร้างรายการเอกสารโดยเคส -->
-    <app-create-by-case></app-create-by-case>
-    <!-- สร้างรายการเอกสารโดยกลุ่มเอกสาร -->
-    <app-create-by-type></app-create-by-type>
-    <!-- รายการเอกสาร -->
-    <app-table-case></app-table-case>
-    <!--  -->
-    
-<app-side-bar >   
+    <div class="create-by-case">
+      <app-create-by-case></app-create-by-case>      
+    </div>
+  </div>
+  <!-- รายการเอกสาร -->
+  <app-table-case></app-table-case>
+</div>
+
+<app-side-bar> </app-side-bar>

@@ -1,515 +1,1053 @@
 <mat-toolbar class="mat-elevation-z3">
   <a href="signin">
-    <img src="assets/toolbar/bangkok_bank.png" alt="BangkokBank" class="toolbar-image" id="shift-right">
+    <img
+      src="assets/toolbar/bangkok_bank.png"
+      alt="BangkokBank"
+      class="toolbar-image"
+      id="shift-right"
+    />
   </a>
   <div class="spacer"></div>
 </mat-toolbar>
 
 <div class="forms">
-    <fieldset class="functype">
-      <legend>Function การทำงาน</legend><br>
-      <select class="functype-select" id="func-type" name="func-type" [(ngModel)]="selectedFunctionType">
-        <option value="">-----เลือกฟังก์ชั่นการทำงาน-----</option>
-        <option value="copy">Copy จากฐานข้อมูล</option>
-        <option value="edit">แก้ไข Index</option>
-        <option value="delete">ลบเอกสารออกจากฐานข้อมูล</option>
-        <option value="transfer">โอนเอกสาร/On Hold</option>
-        <option value="receive">รับโอนเอกสาร/ปลด On Hold</option>
-      </select><br>
-      <div class="centerside">
-        <button class="centerside" type="button"><img src="assets/checker/save.png" alt="save" class="button-icon">Batch ถัดไป</button>
+  <fieldset class="functype">
+    <legend>Function การทำงาน</legend>
+    <br />
+    <select
+      class="functype-select"
+      id="func-type"
+      name="func-type"
+      [(ngModel)]="selectedFunctionType"
+    >
+      <option value="">-----เลือกฟังก์ชั่นการทำงาน-----</option>
+      <option value="copy">Copy จากฐานข้อมูล</option>
+      <option value="edit">แก้ไข Index</option>
+      <option value="delete">ลบเอกสารออกจากฐานข้อมูล</option>
+      <option value="transfer">โอนเอกสาร/On Hold</option>
+      <option value="receive">รับโอนเอกสาร/ปลด On Hold</option></select
+    ><br />
+    <div class="centerside">
+      <button class="centerside" type="button">
+        <img
+          src="assets/checker/save.png"
+          alt="save"
+          class="button-icon"
+        />Batch ถัดไป
+      </button>
+    </div>
+  </fieldset>
+</div>
+<br />
+
+<div class="tabs">
+  <button mat-button color="primary" onclick="" class="tab-button">
+    <img
+      src="./assets/checker/acceptbatch.png"
+      alt="acceptbatch"
+      class="button-icons"
+    />ยอมรับ Batch
+  </button>
+  <button mat-button color="primary" class="tab-button">
+    <img
+      src="./assets/checker/viewbatch.png"
+      alt="viewbatch"
+      class="button-icons"
+    />ส่งกลับไปเพื่อ ลงทะเบียนใหม่
+  </button>
+  <button mat-button color="primary" class="tab-button">
+    <img
+      src="./assets/checker/cancel.png"
+      alt="cancel"
+      class="button-icons"
+    />ส่งกลับไปเพื่อ Index ใหม่
+  </button>
+</div>
+<br />
+
+<div *ngIf="selectedFunctionType === 'copy'" class="main-content">
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>รายการเอกสาร</legend>
+      <div class="blox">
+        <!-- Document Tree goes here -->
+        <ul>
+          <li *ngFor="let node of treeData">
+            <div class="node-container">
+              <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
+                {{ node.expanded ? "-" : "+" }}
+              </button>
+              <input
+                #checkboxes
+                type="checkbox"
+                [(ngModel)]="node.checked"
+                (change)="onCheckboxChange(node)"
+              />
+              <mat-icon>{{
+                node.type === "folder" ? "folder" : "description"
+              }}</mat-icon>
+              <span
+                class="node-name"
+                [ngClass]="{
+                  folder: node.type === 'folder',
+                  file: node.type === 'file'
+                }"
+              >
+                {{ node.name }}
+              </span>
+            </div>
+            <ul *ngIf="node.type === 'folder' && node.expanded">
+              <ng-container
+                *ngTemplateOutlet="
+                  treeTemplate;
+                  context: { $implicit: node.children }
+                "
+              ></ng-container>
+            </ul>
+          </li>
+        </ul>
+        <ng-template #treeTemplate let-treeData>
+          <ul>
+            <li *ngFor="let node of treeData">
+              <div class="node-container">
+                <button
+                  (click)="toggleNode(node)"
+                  *ngIf="node.type === 'folder'"
+                >
+                  {{ node.expanded ? "-" : "+" }}
+                </button>
+                <input
+                  #checkboxes
+                  type="checkbox"
+                  [(ngModel)]="node.checked"
+                  (change)="onCheckboxChange(node)"
+                />
+                <mat-icon>{{
+                  node.type === "folder" ? "folder" : "description"
+                }}</mat-icon>
+                <span
+                  class="node-name"
+                  [ngClass]="{
+                    folder: node.type === 'folder',
+                    file: node.type === 'file'
+                  }"
+                >
+                  {{ node.name }}
+                </span>
+              </div>
+              <ul *ngIf="node.type === 'folder' && node.expanded">
+                <ng-container
+                  *ngTemplateOutlet="
+                    treeTemplate;
+                    context: { $implicit: node.children }
+                  "
+                ></ng-container>
+              </ul>
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+      <div class="down">
+        <div class="centerside">
+          <button class="arrow-button" id="prev-button" type="add">
+            <img
+              src="./assets/checker/left.png"
+              alt="left"
+              class="button-iconsss"
+            />
+          </button>
+          <button class="arrow-button" id="next-button" type="add">
+            <img
+              src="./assets/checker/right.png"
+              alt="right"
+              class="button-iconsss"
+            />
+          </button>
+        </div>
+        <br />
+        <div class="centerside">
+          <button type="add" class="centerside" (click)="openDialog()">
+            เพิ่มหมายเหตุ
+          </button>
+        </div>
+        <br />
+        <div class="centerside">
+          <button type="add" class="centerside">รายละเอียดหมายเหตุ</button>
+        </div>
+        <br />
+        <div class="centerside">
+          <button type="add" class="centerside">ข้อมูล Batch</button>
+        </div>
+        <br />
+        <div class="centerside">
+          <button type="add" class="centerside" (click)="openviewdivision()">
+            View Division
+          </button>
+        </div>
       </div>
     </fieldset>
-  </div><br>
-  
-  <div class="tabs">
-    <button mat-button color="primary" onclick="" class="tab-button"><img src="./assets/checker/acceptbatch.png" alt="acceptbatch" class="button-icons">ยอมรับ Batch</button>
-    <button mat-button color="primary" class="tab-button"><img src="./assets/checker/viewbatch.png" alt="viewbatch" class="button-icons">ส่งกลับไปเพื่อ ลงทะเบียนใหม่</button>
-    <button mat-button color="primary" class="tab-button"><img src="./assets/checker/cancel.png" alt="cancel" class="button-icons">ส่งกลับไปเพื่อ Index ใหม่</button>
-  </div><br>
-  
-  <div *ngIf="selectedFunctionType === 'copy'" class="main-content">
-    <div class="sidebar">
-      <fieldset class="docall">
-        <legend>รายการเอกสาร</legend>
-        <div class="blox">
-          <!-- Document Tree goes here -->
-          <ul>
-            <li *ngFor="let node of treeData">
-              <div class="node-container">
-                <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
-                  {{ node.expanded ? '-' : '+' }}
-                </button>
-                <input #checkboxes type="checkbox" [(ngModel)]="node.checked" (change)="onCheckboxChange(node)">
-                <mat-icon>{{ node.type === 'folder' ? 'folder' : 'description' }}</mat-icon>
-                <span class="node-name" [ngClass]="{ 'folder': node.type === 'folder', 'file': node.type === 'file' }">
-                  {{ node.name }}
-                </span>
-              </div>
-              <ul *ngIf="node.type === 'folder' && node.expanded">
-                <ng-container *ngTemplateOutlet="treeTemplate; context: { $implicit: node.children }"></ng-container>
-              </ul>
-            </li>
-          </ul>
-          <ng-template #treeTemplate let-treeData>
-            <ul>
-              <li *ngFor="let node of treeData">
-                <div class="node-container">
-                  <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
-                    {{ node.expanded ? '-' : '+' }}
-                  </button>
-                  <input #checkboxes type="checkbox" [(ngModel)]="node.checked" (change)="onCheckboxChange(node)">
-                  <mat-icon>{{ node.type === 'folder' ? 'folder' : 'description' }}</mat-icon>
-                  <span class="node-name" [ngClass]="{ 'folder': node.type === 'folder', 'file': node.type === 'file' }">
-                    {{ node.name }}
-                  </span>
-                </div>
-                <ul *ngIf="node.type === 'folder' && node.expanded">
-                  <ng-container *ngTemplateOutlet="treeTemplate; context: { $implicit: node.children }"></ng-container>
-                </ul>
-              </li>
-            </ul>
-          </ng-template>
-        </div>
-        <div class="down">
-          <div class="centerside">
-            <button class="arrow-button" id="prev-button" type="add"><img src="./assets/checker/left.png" alt="left" class="button-iconsss"></button>
-            <button class="arrow-button" id="next-button" type="add"><img src="./assets/checker/right.png" alt="right" class="button-iconsss"></button>
-          </div><br>
-          <div class="centerside"><button type="add" class="centerside"(click)="openDialog()">เพิ่มหมายเหตุ</button></div><br>
-          <div class="centerside"><button type="add" class="centerside">รายละเอียดหมายเหตุ</button></div><br>
-          <div class="centerside"><button type="add" class="centerside">ข้อมูล Batch</button></div><br>
-          <div class="centerside"><button type="add" class="centerside" (click)="openviewdivision()">View Division</button></div>
-        </div>
-      </fieldset>
-      <div class="sidebar3">
-        <fieldset class="docall1">
-          <legend>รายละเอียดเอกสาร</legend>
-          <div>
-          <select class = "casetype-select" id="func-type" name="func-type" [(ngModel)]="selectedDocumentDetail">
+    <div class="sidebar3">
+      <fieldset class="docall1">
+        <legend>รายละเอียดเอกสาร</legend>
+        <div>
+          <select
+            class="casetype-select"
+            id="func-type"
+            name="func-type"
+            [(ngModel)]="selectedDocumentDetail"
+          >
             <option value="">-----เลือกรายละเอียดเอกสาร-----</option>
             <option value="cases">ข้อมูล Case ที่มีอยู่</option>
             <option value="Indexesofcasenew">Indexes ของ Case ใหม่</option>
             <option value="Indexesofdoc">Indexes ของเอกสาร</option>
             <option value="nodoc">เลทที่อ้างอิงในการจัดเกมเอกสาร</option>
-        </select>
-      </div>
-      <div class = "grayblox-small" [ngSwitch]="selectedDocumentDetail">
-        <div *ngSwitchDefault>
-          <p></p>
+          </select>
         </div>
-        <div *ngSwitchCase="'cases'">
-          <div class="center"><br>
-            <div class="form-rows">
-              <div>
-            <label class="fonts" for="customer-id">Customer id:</label><br>
-            <input type="text" id="customer-id" name="customer-id" formControlName="customerId"readonly >
-          </div>
-          <div>
-            <label class="fonts" for="customer-id">RM no:</label><br>
-            <input type="text" id="rm-no" name="rm-no" formControlName="rmNo" readonly>
-          </div>
-          
-          </div><br>
-            <div class="form-rows">
-              <div>
-            <label class = "fonts" for="customer-name">ชื่อผู้ค้า:</label><br>
-            <input class = "box" type="cus" id="customer-name" name="customer-name" formControlName="customerName"readonly>
-          </div>
-          </div><br>
-  
-            <div class="form-rows">
-              <div>
-                <label class = "fonts" for="als-all">ALS No. (ALI):</label><br>
-                <input  type="text" id="als-all" name="als-all" formControlName="alsAll">
-          </div>
-          <div>
-            <label class = "fonts" for="CA">CA No.:</label><br>
-            <input  type="text" id="CA" name="CA" readonly>
-          </div>
-          </div><br>
-  
-          <div class="form-rows">
-            <div>
-              <label class = "fonts"  for="als-ac">ALS No. (AC):</label><br>
-              <input  type="text" id="als-ac" name="als-ac" formControlName="alsAc" readonly>
-        </div>
-        <div>
-          <label  class = "fonts" for="LG">LG No.:</label><br>
-          <input  type="text" id="LG" name="LG" readonly>
-        </div>
-        </div><br>
-  
-        <div class="form-rows">
-          <div>
-              <label class = "fonts" for="Inter-LG-No">Inter LG No./<br>Stand by LC No.:</label><br>
-              <input  type="text" id="Inter-LG-No" name="Inter-LG-No" readonly>
-        </div>
-        <div>
-               <label class = "fonts"  for="teledrate-no">Teledrate No./<br> Equation No.:</label><br>
-              <input  type="text" id="teledrate-no" name="teledrate-no" readonly>
-      </div>
-      </div><br>
-  
-  
-  
-  
-          </div>
-        </div>
-        <div *ngSwitchCase="'Indexesofcasenew'">
-          <div class="center"><br>
-            <div class="form-rows">
-              <div>
-            <label class="fonts" for="customer-id">Customer id:</label><br>
-            <input type="text" id="customer-id" name="customer-id" formControlName="customerId"readonly >
-          </div>
-          <div>
-            <label class="fonts" for="customer-id">RM no:</label><br>
-            <input type="text" id="rm-no" name="rm-no" formControlName="rmNo" readonly>
-          </div>
-          
-          </div><br>
-            <div class="form-rows">
-              <div>
-            <label class = "fonts" for="customer-name">ชื่อผู้ค้า:</label><br>
-            <input class = "box" type="cus" id="customer-name" name="customer-name" formControlName="customerName"readonly>
-          </div>
-          </div><br>
-  
-            <div class="form-rows">
-              <div>
-                <label class = "fonts" for="als-all">ALS No. (ALI):</label><br>
-                <input  type="text" id="als-all" name="als-all" formControlName="alsAll">
-          </div>
-          <div>
-            <label class = "fonts" for="CA">CA No.:</label><br>
-            <input  type="text" id="CA" name="CA" readonly>
-          </div>
-          </div><br>
-  
-          <div class="form-rows">
-            <div>
-              <label class = "fonts"  for="als-ac">ALS No. (AC):</label><br>
-              <input  type="text" id="als-ac" name="als-ac" formControlName="alsAc" readonly>
-        </div>
-        <div>
-          <label  class = "fonts" for="LG">LG No.:</label><br>
-          <input  type="text" id="LG" name="LG" readonly>
-        </div>
-        </div><br>
-  
-        <div class="form-rows">
-          <div>
-              <label class = "fonts" for="Inter-LG-No">Inter LG No./<br>Stand by LC No.:</label><br>
-              <input  type="text" id="Inter-LG-No" name="Inter-LG-No" readonly>
-        </div>
-        <div>
-               <label class = "fonts"  for="teledrate-no">Teledrate No./<br> Equation No.:</label><br>
-              <input  type="text" id="teledrate-no" name="teledrate-no" readonly>
-      </div>
-      </div><br>
-      </div>
-        </div>
-        <div *ngSwitchCase="'Indexesofdoc'">
-          <div class = "form-sections"><br>
-            <label  for="document-date" class = "fonts">Document Date:</label>
-            <input class = "font" type="date" id="document-date" >
-            <label for="document-ref" class = "fonts">Document Ref.:</label>
-            <input class = "font" type="text" id="document-ref" >
-        </div>
-      </div>
-        <div *ngSwitchCase="'nodoc'"><br>
-          <fieldset class = "gridtype">
-            <legend class = "white">ระดับของ Batch</legend>
-            <div class = "form-sectionss">
-              <label class = "fonts">เลขที่อ้างอิงการจัดเก็บ File Room:</label>
-              <input class = "font" type="text" id="" >
-              <label class = "fonts">เลขที่อ้างอิงการจัดเก็บ Strong Room:</label>
-              <input class = "font" type="text" id="" >
-            </div>
-          </fieldset><br>
-          <div class = "form-sectionss">
-            <label class = "fonts">เลขที่อ้างอิงการจัดเก็บ File Room:</label>
-            <input class = "font" type="text" id="" >
-            <label class = "fonts">เลขที่อ้างอิงการจัดเก็บ Strong Room:</label>
-            <input class = "font" type="text" id="" >
-          </div>
-        </div>
-      </div>
-        </fieldset>
-      </div>
-    </div>
-  
-    <div class="sidebar2">
-      <fieldset class="docall2">
-        <legend>Capture Viewer</legend>
-        <div class="grayblox-tab1">
-          <div class="centerrside1">
-            <button type="button" class="centerrside"><img src="./assets/checker/saving.png" alt="saving" class="button-iconsss"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/scopeplus.png" alt="correct" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/scopeminus.png" alt="incorrect" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/updown.png" alt="updown" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/rightleft.png" alt="rightleft" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/allarrow.png" alt="allarrow" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/docscope.png" alt="docscope" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/loop3.png" alt="loop1" class="button-iconss"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/loop4.png" alt="loop2" class="button-iconss"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/bulblight.png" alt="bulblight" class="button-iconss"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/bulb.png" alt="bulb" class="button-iconss"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/bulbblack.png" alt="bulbblack" class="button-iconss"></button>
-          </div>
-          <div class = "centerrside1">
-            <button type="button" class="centerrside"><img src="./assets/checker/AA.png" alt="AA" class="button-iconss"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/arrowleft.png" alt="arrowleft" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/arrowright.png" alt="arrowright" class="button-icon"></button>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-    
-  </div>
-  
-  <div *ngIf="selectedFunctionType !== 'copy'" class="main-content">
-    <div class="sidebar">
-      <fieldset class="docall">
-        <legend>รายการเอกสาร</legend>
-        <div class="blox">
-          <!-- Document Tree goes here -->
-          <ul>
-            <li *ngFor="let node of treeData">
-              <div class="node-container">
-                <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
-                  {{ node.expanded ? '-' : '+' }}
-                </button>
-                <input #checkboxes type="checkbox" [(ngModel)]="node.checked" (change)="onCheckboxChange(node)">
-                <mat-icon>{{ node.type === 'folder' ? 'folder' : 'description' }}</mat-icon>
-                <span class="node-name" [ngClass]="{ 'folder': node.type === 'folder', 'file': node.type === 'file' }">
-                  {{ node.name }}
-                </span>
-              </div>
-              <ul *ngIf="node.type === 'folder' && node.expanded">
-                <ng-container *ngTemplateOutlet="treeTemplate; context: { $implicit: node.children }"></ng-container>
-              </ul>
-            </li>
-          </ul>
-          <ng-template #treeTemplate let-treeData>
-            <ul>
-              <li *ngFor="let node of treeData">
-                <div class="node-container">
-                  <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
-                    {{ node.expanded ? '-' : '+' }}
-                  </button>
-                  <input #checkboxes type="checkbox" [(ngModel)]="node.checked" (change)="onCheckboxChange(node)">
-                  <mat-icon>{{ node.type === 'folder' ? 'folder' : 'description' }}</mat-icon>
-                  <span class="node-name" [ngClass]="{ 'folder': node.type === 'folder', 'file': node.type === 'file' }">
-                    {{ node.name }}
-                  </span>
-                </div>
-                <ul *ngIf="node.type === 'folder' && node.expanded">
-                  <ng-container *ngTemplateOutlet="treeTemplate; context: { $implicit: node.children }"></ng-container>
-                </ul>
-              </li>
-            </ul>
-          </ng-template>
-        </div>
-        <div class="down">
-          <div class="centerside">
-            <button class="arrow-button" id="prev-button" type="add"><img src="./assets/checker/left.png" alt="left" class="button-iconsss"></button>
-            <button class="arrow-button" id="next-button" type="add"><img src="./assets/checker/right.png" alt="right" class="button-iconsss"></button>
-          </div><br>
-          <div class="centerside"><button type="add" class="centerside"(click)="openDialog()">เพิ่มหมายเหตุ</button></div><br>
-          <div class="centerside"><button type="add" class="centerside">รายละเอียดหมายเหตุ</button></div><br>
-          <div class="centerside"><button type="add" class="centerside">ข้อมูล Batch</button></div><br>
-          <div class="centerside"><button type="add" class="centerside" (click)="openviewdivision()">View Division</button></div>
-        </div>
-      </fieldset>
-      <div class="sidebar3">
-        <fieldset class="docall1">
-          <legend>รายละเอียดเอกสาร</legend>
-          <div>
-          <select class = "casetype-select" id="func-type" name="func-type" [(ngModel)]="selectedDocumentDetail">
-            <option value="">-----เลือกรายละเอียดเอกสาร-----</option>
-            <option value="cases">ข้อมูล Case ที่มีอยู่</option>
-            <option value="Indexesofcasenew">Indexes ของ Case ใหม่</option>
-            <option value="Indexesofdoc">Indexes ของเอกสาร</option>
-            <option value="nodoc">เลทที่อ้างอิงในการจัดเกมเอกสาร</option>
-        </select>
-      </div>
-        <div class = "grayblox-small" [ngSwitch]="selectedDocumentDetail">
+        <div class="grayblox-small" [ngSwitch]="selectedDocumentDetail">
           <div *ngSwitchDefault>
             <p></p>
           </div>
           <div *ngSwitchCase="'cases'">
-            <div class="center"><br>
-            <div class="form-rows">
-              <div>
-            <label class="fonts" for="customer-id">Customer id:</label><br>
-            <input type="text" id="customer-id" name="customer-id" formControlName="customerId"readonly >
+            <div class="center">
+              <br />
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="customer-id">Customer id:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="customer-id"
+                    name="customer-id"
+                    formControlName="customerId"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="customer-id">RM no:</label><br />
+                  <input
+                    type="text"
+                    id="rm-no"
+                    name="rm-no"
+                    formControlName="rmNo"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="customer-name">ชื่อผู้ค้า:</label
+                  ><br />
+                  <input
+                    class="box"
+                    type="cus"
+                    id="customer-name"
+                    name="customer-name"
+                    formControlName="customerName"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="als-all">ALS No. (ALI):</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="als-all"
+                    name="als-all"
+                    formControlName="alsAll"
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="CA">CA No.:</label><br />
+                  <input type="text" id="CA" name="CA" readonly />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="als-ac">ALS No. (AC):</label><br />
+                  <input
+                    type="text"
+                    id="als-ac"
+                    name="als-ac"
+                    formControlName="alsAc"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="LG">LG No.:</label><br />
+                  <input type="text" id="LG" name="LG" readonly />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="Inter-LG-No"
+                    >Inter LG No./<br />Stand by LC No.:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="Inter-LG-No"
+                    name="Inter-LG-No"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="teledrate-no"
+                    >Teledrate No./<br />
+                    Equation No.:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="teledrate-no"
+                    name="teledrate-no"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+            </div>
           </div>
-          <div>
-            <label class="fonts" for="customer-id">RM no:</label><br>
-            <input type="text" id="rm-no" name="rm-no" formControlName="rmNo" readonly>
-          </div>
-          
-          </div><br>
-            <div class="form-rows">
-              <div>
-            <label class = "fonts" for="customer-name">ชื่อผู้ค้า:</label><br>
-            <input class = "box" type="cus" id="customer-name" name="customer-name" formControlName="customerName"readonly>
-          </div>
-          </div><br>
-  
-            <div class="form-rows">
-              <div>
-                <label class = "fonts" for="als-all">ALS No. (ALI):</label><br>
-                <input  type="text" id="als-all" name="als-all" formControlName="alsAll">
-          </div>
-          <div>
-            <label class = "fonts" for="CA">CA No.:</label><br>
-            <input  type="text" id="CA" name="CA" readonly>
-          </div>
-          </div><br>
-  
-          <div class="form-rows">
-            <div>
-              <label class = "fonts"  for="als-ac">ALS No. (AC):</label><br>
-              <input  type="text" id="als-ac" name="als-ac" formControlName="alsAc" readonly>
-        </div>
-        <div>
-          <label  class = "fonts" for="LG">LG No.:</label><br>
-          <input  type="text" id="LG" name="LG" readonly>
-        </div>
-        </div><br>
-  
-        <div class="form-rows">
-          <div>
-              <label class = "fonts" for="Inter-LG-No">Inter LG No./<br>Stand by LC No.:</label><br>
-              <input  type="text" id="Inter-LG-No" name="Inter-LG-No" readonly>
-        </div>
-        <div>
-               <label class = "fonts"  for="teledrate-no">Teledrate No./<br> Equation No.:</label><br>
-              <input  type="text" id="teledrate-no" name="teledrate-no" readonly>
-      </div>
-      </div><br>
-  
-  
-  
-  
-          </div>
-          </div>
-  
-  
           <div *ngSwitchCase="'Indexesofcasenew'">
-            
-            <div class="center"><br>
+            <div class="center">
+              <br />
               <div class="form-rows">
                 <div>
-              <label class="fonts" for="customer-id">Customer id:</label><br>
-              <input type="text" id="customer-id" name="customer-id" formControlName="customerId"readonly >
-            </div>
-            <div>
-              <label class="fonts" for="customer-id">RM no:</label><br>
-              <input type="text" id="rm-no" name="rm-no" formControlName="rmNo" readonly>
-            </div>
-            
-            </div><br>
+                  <label class="fonts" for="customer-id">Customer id:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="customer-id"
+                    name="customer-id"
+                    formControlName="customerId"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="customer-id">RM no:</label><br />
+                  <input
+                    type="text"
+                    id="rm-no"
+                    name="rm-no"
+                    formControlName="rmNo"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
               <div class="form-rows">
                 <div>
-              <label class = "fonts" for="customer-name">ชื่อผู้ค้า:</label><br>
-              <input class = "box" type="cus" id="customer-name" name="customer-name" formControlName="customerName"readonly>
-            </div>
-            </div><br>
-    
+                  <label class="fonts" for="customer-name">ชื่อผู้ค้า:</label
+                  ><br />
+                  <input
+                    class="box"
+                    type="cus"
+                    id="customer-name"
+                    name="customer-name"
+                    formControlName="customerName"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+
               <div class="form-rows">
                 <div>
-                  <label class = "fonts" for="als-all">ALS No. (ALI):</label><br>
-                  <input  type="text" id="als-all" name="als-all" formControlName="alsAll">
+                  <label class="fonts" for="als-all">ALS No. (ALI):</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="als-all"
+                    name="als-all"
+                    formControlName="alsAll"
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="CA">CA No.:</label><br />
+                  <input type="text" id="CA" name="CA" readonly />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="als-ac">ALS No. (AC):</label><br />
+                  <input
+                    type="text"
+                    id="als-ac"
+                    name="als-ac"
+                    formControlName="alsAc"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="LG">LG No.:</label><br />
+                  <input type="text" id="LG" name="LG" readonly />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="Inter-LG-No"
+                    >Inter LG No./<br />Stand by LC No.:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="Inter-LG-No"
+                    name="Inter-LG-No"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="teledrate-no"
+                    >Teledrate No./<br />
+                    Equation No.:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="teledrate-no"
+                    name="teledrate-no"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
             </div>
-            <div>
-              <label class = "fonts" for="CA">CA No.:</label><br>
-              <input  type="text" id="CA" name="CA" readonly>
-            </div>
-            </div><br>
-    
-            <div class="form-rows">
-              <div>
-                <label class = "fonts"  for="als-ac">ALS No. (AC):</label><br>
-                <input  type="text" id="als-ac" name="als-ac" formControlName="alsAc" readonly>
-          </div>
-          <div>
-            <label  class = "fonts" for="LG">LG No.:</label><br>
-            <input  type="text" id="LG" name="LG" readonly>
-          </div>
-          </div><br>
-    
-          <div class="form-rows">
-            <div>
-                <label class = "fonts" for="Inter-LG-No">Inter LG No./<br>Stand by LC No.:</label><br>
-                <input  type="text" id="Inter-LG-No" name="Inter-LG-No" readonly>
-          </div>
-          <div>
-                 <label class = "fonts"  for="teledrate-no">Teledrate No./<br> Equation No.:</label><br>
-                <input  type="text" id="teledrate-no" name="teledrate-no" readonly>
-        </div>
-        </div><br>
-        </div>
-  
-  
-  
-  
           </div>
           <div *ngSwitchCase="'Indexesofdoc'">
-            <div class = "form-sections"><br>
-            <label  for="document-date" class = "fonts">Document Date:</label>
-            <input class = "font" type="date" id="document-date" >
-            <label for="document-ref" class = "fonts">Document Ref.:</label>
-            <input class = "font" type="text" id="document-ref" >
+            <div class="form-sections">
+              <br />
+              <label for="document-date" class="fonts">Document Date:</label>
+              <input class="font" type="date" id="document-date" />
+              <label for="document-ref" class="fonts">Document Ref.:</label>
+              <input class="font" type="text" id="document-ref" />
+            </div>
           </div>
-          </div>
-          <div *ngSwitchCase="'nodoc'"><br>
-              <fieldset class = "gridtype">
-                <legend class = "white">ระดับของ Batch</legend>
-                <div class = "form-sectionss">
-                  <label class = "fonts">เลขที่อ้างอิงการจัดเก็บ File Room:</label>
-                  <input class = "font" type="text" id="" >
-                  <label class = "fonts">เลขที่อ้างอิงการจัดเก็บ Strong Room:</label>
-                  <input class = "font" type="text" id="" >
-                </div>
-              </fieldset><br>
-              <div class = "form-sectionss">
-                <label class = "fonts">เลขที่อ้างอิงการจัดเก็บ File Room:</label>
-                <input class = "font" type="text" id="" >
-                <label class = "fonts">เลขที่อ้างอิงการจัดเก็บ Strong Room:</label>
-                <input class = "font" type="text" id="" >
+          <div *ngSwitchCase="'nodoc'">
+            <br />
+            <fieldset class="gridtype">
+              <legend class="white">ระดับของ Batch</legend>
+              <div class="form-sectionss">
+                <label class="fonts">เลขที่อ้างอิงการจัดเก็บ File Room:</label>
+                <input class="font" type="text" id="" />
+                <label class="fonts"
+                  >เลขที่อ้างอิงการจัดเก็บ Strong Room:</label
+                >
+                <input class="font" type="text" id="" />
               </div>
-          </div>
-  
-  
-  
-        </div>
-        </fieldset>
-      </div>
-    </div>
-  
-    <div class="sidebar2">
-      <fieldset class="docall2">
-        <legend>Capture Viewer</legend>
-        <div class="grayblox-tab">
-          <div class="centerrside">
-            <button type="button" class="centerrside"><img src="./assets/checker/arrowleft.png" alt="arrowleft" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/arrowright.png" alt="arrowright" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/docscope.png" alt="docscope" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/scopeplus.png" alt="correct" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/scopeminus.png" alt="incorrect" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/loop3.png" alt="loop1" class="button-iconss"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/loop4.png" alt="loop2" class="button-iconss"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/looper.png" alt="looper" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/updown.png" alt="updown" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/rightleft.png" alt="rightleft" class="button-icon"></button>
-            <button type="button" class="centerrside"><img src="./assets/checker/allarrow.png" alt="allarrow" class="button-icon"></button>
+            </fieldset>
+            <br />
+            <div class="form-sectionss">
+              <label class="fonts">เลขที่อ้างอิงการจัดเก็บ File Room:</label>
+              <input class="font" type="text" id="" />
+              <label class="fonts">เลขที่อ้างอิงการจัดเก็บ Strong Room:</label>
+              <input class="font" type="text" id="" />
+            </div>
           </div>
         </div>
       </fieldset>
-    </div><br>
+    </div>
   </div>
-  <app-side-bar >
+
+  <div class="sidebar2">
+    <fieldset class="docall2">
+      <legend>Capture Viewer</legend>
+      <div class="grayblox-tab1">
+        <div class="centerrside1">
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/saving.png"
+              alt="saving"
+              class="button-iconsss"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/scopeplus.png"
+              alt="correct"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/scopeminus.png"
+              alt="incorrect"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/updown.png"
+              alt="updown"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/rightleft.png"
+              alt="rightleft"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/allarrow.png"
+              alt="allarrow"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/docscope.png"
+              alt="docscope"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/loop3.png"
+              alt="loop1"
+              class="button-iconss"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/loop4.png"
+              alt="loop2"
+              class="button-iconss"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/bulblight.png"
+              alt="bulblight"
+              class="button-iconss"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/bulb.png"
+              alt="bulb"
+              class="button-iconss"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/bulbblack.png"
+              alt="bulbblack"
+              class="button-iconss"
+            />
+          </button>
+        </div>
+        <div class="centerrside1">
+          <button type="button" class="centerrside">
+            <img src="./assets/checker/AA.png" alt="AA" class="button-iconss" />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/arrowleft.png"
+              alt="arrowleft"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/arrowright.png"
+              alt="arrowright"
+              class="button-icon"
+            />
+          </button>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div *ngIf="selectedFunctionType !== 'copy'" class="main-content">
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>รายการเอกสาร</legend>
+      <div class="blox">
+        <!-- Document Tree goes here -->
+        <ul>
+          <li *ngFor="let node of treeData">
+            <div class="node-container">
+              <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
+                {{ node.expanded ? "-" : "+" }}
+              </button>
+              <input
+                #checkboxes
+                type="checkbox"
+                [(ngModel)]="node.checked"
+                (change)="onCheckboxChange(node)"
+              />
+              <mat-icon>{{
+                node.type === "folder" ? "folder" : "description"
+              }}</mat-icon>
+              <span
+                class="node-name"
+                [ngClass]="{
+                  folder: node.type === 'folder',
+                  file: node.type === 'file'
+                }"
+              >
+                {{ node.name }}
+              </span>
+            </div>
+            <ul *ngIf="node.type === 'folder' && node.expanded">
+              <ng-container
+                *ngTemplateOutlet="
+                  treeTemplate;
+                  context: { $implicit: node.children }
+                "
+              ></ng-container>
+            </ul>
+          </li>
+        </ul>
+        <ng-template #treeTemplate let-treeData>
+          <ul>
+            <li *ngFor="let node of treeData">
+              <div class="node-container">
+                <button
+                  (click)="toggleNode(node)"
+                  *ngIf="node.type === 'folder'"
+                >
+                  {{ node.expanded ? "-" : "+" }}
+                </button>
+                <input
+                  #checkboxes
+                  type="checkbox"
+                  [(ngModel)]="node.checked"
+                  (change)="onCheckboxChange(node)"
+                />
+                <mat-icon>{{
+                  node.type === "folder" ? "folder" : "description"
+                }}</mat-icon>
+                <span
+                  class="node-name"
+                  [ngClass]="{
+                    folder: node.type === 'folder',
+                    file: node.type === 'file'
+                  }"
+                >
+                  {{ node.name }}
+                </span>
+              </div>
+              <ul *ngIf="node.type === 'folder' && node.expanded">
+                <ng-container
+                  *ngTemplateOutlet="
+                    treeTemplate;
+                    context: { $implicit: node.children }
+                  "
+                ></ng-container>
+              </ul>
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+      <div class="down">
+        <div class="centerside">
+          <button class="arrow-button" id="prev-button" type="add">
+            <img
+              src="./assets/checker/left.png"
+              alt="left"
+              class="button-iconsss"
+            />
+          </button>
+          <button class="arrow-button" id="next-button" type="add">
+            <img
+              src="./assets/checker/right.png"
+              alt="right"
+              class="button-iconsss"
+            />
+          </button>
+        </div>
+        <br />
+        <div class="centerside">
+          <button type="add" class="centerside" (click)="openDialog()">
+            เพิ่มหมายเหตุ
+          </button>
+        </div>
+        <br />
+        <div class="centerside">
+          <button type="add" class="centerside">รายละเอียดหมายเหตุ</button>
+        </div>
+        <br />
+        <div class="centerside">
+          <button type="add" class="centerside">ข้อมูล Batch</button>
+        </div>
+        <br />
+        <div class="centerside">
+          <button type="add" class="centerside" (click)="openviewdivision()">
+            View Division
+          </button>
+        </div>
+      </div>
+    </fieldset>
+    <div class="sidebar3">
+      <fieldset class="docall1">
+        <legend>รายละเอียดเอกสาร</legend>
+        <div>
+          <select
+            class="casetype-select"
+            id="func-type"
+            name="func-type"
+            [(ngModel)]="selectedDocumentDetail"
+          >
+            <option value="">-----เลือกรายละเอียดเอกสาร-----</option>
+            <option value="cases">ข้อมูล Case ที่มีอยู่</option>
+            <option value="Indexesofcasenew">Indexes ของ Case ใหม่</option>
+            <option value="Indexesofdoc">Indexes ของเอกสาร</option>
+            <option value="nodoc">เลทที่อ้างอิงในการจัดเกมเอกสาร</option>
+          </select>
+        </div>
+        <div class="grayblox-small" [ngSwitch]="selectedDocumentDetail">
+          <div *ngSwitchDefault>
+            <p></p>
+          </div>
+          <div *ngSwitchCase="'cases'">
+            <div class="center">
+              <br />
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="customer-id">Customer id:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="customer-id"
+                    name="customer-id"
+                    formControlName="customerId"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="customer-id">RM no:</label><br />
+                  <input
+                    type="text"
+                    id="rm-no"
+                    name="rm-no"
+                    formControlName="rmNo"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="customer-name">ชื่อผู้ค้า:</label
+                  ><br />
+                  <input
+                    class="box"
+                    type="cus"
+                    id="customer-name"
+                    name="customer-name"
+                    formControlName="customerName"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="als-all">ALS No. (ALI):</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="als-all"
+                    name="als-all"
+                    formControlName="alsAll"
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="CA">CA No.:</label><br />
+                  <input type="text" id="CA" name="CA" readonly />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="als-ac">ALS No. (AC):</label><br />
+                  <input
+                    type="text"
+                    id="als-ac"
+                    name="als-ac"
+                    formControlName="alsAc"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="LG">LG No.:</label><br />
+                  <input type="text" id="LG" name="LG" readonly />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="Inter-LG-No"
+                    >Inter LG No./<br />Stand by LC No.:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="Inter-LG-No"
+                    name="Inter-LG-No"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="teledrate-no"
+                    >Teledrate No./<br />
+                    Equation No.:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="teledrate-no"
+                    name="teledrate-no"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+            </div>
+          </div>
+
+          <div *ngSwitchCase="'Indexesofcasenew'">
+            <div class="center">
+              <br />
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="customer-id">Customer id:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="customer-id"
+                    name="customer-id"
+                    formControlName="customerId"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="customer-id">RM no:</label><br />
+                  <input
+                    type="text"
+                    id="rm-no"
+                    name="rm-no"
+                    formControlName="rmNo"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="customer-name">ชื่อผู้ค้า:</label
+                  ><br />
+                  <input
+                    class="box"
+                    type="cus"
+                    id="customer-name"
+                    name="customer-name"
+                    formControlName="customerName"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="als-all">ALS No. (ALI):</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="als-all"
+                    name="als-all"
+                    formControlName="alsAll"
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="CA">CA No.:</label><br />
+                  <input type="text" id="CA" name="CA" readonly />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="als-ac">ALS No. (AC):</label><br />
+                  <input
+                    type="text"
+                    id="als-ac"
+                    name="als-ac"
+                    formControlName="alsAc"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="LG">LG No.:</label><br />
+                  <input type="text" id="LG" name="LG" readonly />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-rows">
+                <div>
+                  <label class="fonts" for="Inter-LG-No"
+                    >Inter LG No./<br />Stand by LC No.:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="Inter-LG-No"
+                    name="Inter-LG-No"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="fonts" for="teledrate-no"
+                    >Teledrate No./<br />
+                    Equation No.:</label
+                  ><br />
+                  <input
+                    type="text"
+                    id="teledrate-no"
+                    name="teledrate-no"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+            </div>
+          </div>
+          <div *ngSwitchCase="'Indexesofdoc'">
+            <div class="form-sections">
+              <br />
+              <label for="document-date" class="fonts">Document Date:</label>
+              <input class="font" type="date" id="document-date" />
+              <label for="document-ref" class="fonts">Document Ref.:</label>
+              <input class="font" type="text" id="document-ref" />
+            </div>
+          </div>
+          <div *ngSwitchCase="'nodoc'">
+            <br />
+            <fieldset class="gridtype">
+              <legend class="white">ระดับของ Batch</legend>
+              <div class="form-sectionss">
+                <label class="fonts">เลขที่อ้างอิงการจัดเก็บ File Room:</label>
+                <input class="font" type="text" id="" />
+                <label class="fonts"
+                  >เลขที่อ้างอิงการจัดเก็บ Strong Room:</label
+                >
+                <input class="font" type="text" id="" />
+              </div>
+            </fieldset>
+            <br />
+            <div class="form-sectionss">
+              <label class="fonts">เลขที่อ้างอิงการจัดเก็บ File Room:</label>
+              <input class="font" type="text" id="" />
+              <label class="fonts">เลขที่อ้างอิงการจัดเก็บ Strong Room:</label>
+              <input class="font" type="text" id="" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="sidebar2">
+    <fieldset class="docall2">
+      <legend>Capture Viewer</legend>
+      <div class="grayblox-tab">
+        <div class="centerrside">
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/arrowleft.png"
+              alt="arrowleft"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/arrowright.png"
+              alt="arrowright"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/docscope.png"
+              alt="docscope"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/scopeplus.png"
+              alt="correct"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/scopeminus.png"
+              alt="incorrect"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/loop3.png"
+              alt="loop1"
+              class="button-iconss"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/loop4.png"
+              alt="loop2"
+              class="button-iconss"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/looper.png"
+              alt="looper"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/updown.png"
+              alt="updown"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/rightleft.png"
+              alt="rightleft"
+              class="button-icon"
+            />
+          </button>
+          <button type="button" class="centerrside">
+            <img
+              src="./assets/checker/allarrow.png"
+              alt="allarrow"
+              class="button-icon"
+            />
+          </button>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <br />
+</div>
+<app-side-bar></app-side-bar>

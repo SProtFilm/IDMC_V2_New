@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,17 +10,8 @@ import { HistoryRemarkComponent } from '../history-remark/history-remark.compone
 import { CopyReplaceComponent } from '../copy-replace/copy-replace.component';
 import { TbatchInfoComponent } from '../tbatch-info/tbatch-info.component';
 import { SearchTcaseComponent } from '../search-tcase/search-tcase.component';
+import { ShareTableDataService } from '../../service/share-table-data.service';
 
-interface Document {
-  id: number;
-  docCode: string;
-  docNameEn: string;
-  docNameTh: string;
-  docSource: string;  // Add docSource property
-  room: string;
-  pages: number;
-  selected: boolean;  // Add selected property
-}
 
 @Component({
   selector: 'app-table-case',
@@ -29,25 +20,49 @@ interface Document {
   templateUrl: './table-case.component.html',
   styleUrls: ['./table-case.component.css']
 })
-export class TableCaseComponent {
+export class TableCaseComponent implements OnInit{
   @Output() dialogOpen = new EventEmitter<boolean>();
 
-  cases: Document[] = Array.from({ length: 15 }, (_, i) => ({
-    id: i + 1,
-    docCode: 'xxxx',
-    docNameEn: 'Lorem Ipsum',
-    docNameTh: 'ลอเร็ม อิพซัม',
-    docSource: 'Paper',  
-    room: 'F',
-    pages: 4,
-    selected: false  // Initialize selected to false
-  }));
+  shareItems: any[] = []
 
   currentPage = 1;
-  itemsPerPage = 5;
-  totalPages = Math.ceil(this.cases.length / this.itemsPerPage);
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog , private shareTableDataService : ShareTableDataService) {}
+
+  ngOnInit(): void {
+    this.updateSharedItems();
+  }
+
+  updateSharedItems(): void {
+    this.shareItems = this.shareTableDataService.getSelectedItems();
+  }
+
+
+  goToPreviousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // goToNextPage() {
+  //   if (this.currentPage < this.totalPages) {
+  //     this.currentPage++;
+  //   }
+  // }
+
+  selectAll() {
+    this.shareItems.forEach(shareItems => shareItems.selected = true);
+  }
+
+  unselectAll() {
+    this.shareItems.forEach(shareItems => shareItems.selected = false);
+  }
+
+  removeItem(): void {
+    this.shareTableDataService.removeSelectedItems(); 
+    this.updateSharedItems();
+  }
+
 
   openAddRemarkDialog() {
     this.dialogOpen.emit(true);
@@ -116,11 +131,11 @@ export class TableCaseComponent {
   opensearchTcase() {
     this.dialogOpen.emit(true);
     const dialogRef = this.dialog.open(SearchTcaseComponent, {
-      width: '75%',
+      width: '80%',
       height: 'auto',
       panelClass: 'custom-dialog-container',
       autoFocus: false,
-      disableClose: true
+      disableClose: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -129,28 +144,4 @@ export class TableCaseComponent {
     });
   }
 
-  get paginatedCases() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.cases.slice(startIndex, startIndex + this.itemsPerPage);
-  }
-
-  goToPreviousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
-  goToNextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  }
-
-  selectAll() {
-    this.paginatedCases.forEach(caseItem => caseItem.selected = true);
-  }
-
-  unselectAll() {
-    this.paginatedCases.forEach(caseItem => caseItem.selected = false);
-  }
 }

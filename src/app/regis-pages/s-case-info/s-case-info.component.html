@@ -1,74 +1,58 @@
-<div class="example-form mt-10 p-4 custom-border"> 
-    <div class="bg-blue-900 text-white p-3 rounded-t-lg">
-      <h2 class="text-xl font-bold">ข้อมูล Case</h2>
-    </div>
-    <div class="p-6 border border-blue-900 rounded-b-lg mb-8"> <!-- Updated mb-4 class -->
-      <form class="space-y-6">
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <label class="block text-gray-700 font-medium">ชื่อลูกค้า</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+<div class="main-content">
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>ข้อมูล Case</legend>
+      <div class="form-container">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="als-no-al" class="txt-t">ALS No. (AL) :</label>
+            <input type="text" id="als-no-al">
+          </div>
+          <div class="form-group">
+            <label for="day-account-no">เลขที่บัญชีกระแสรายวัน :</label>
+            <input type="text" id="day-account-no">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <label class="block text-gray-700 font-medium">ALS No. (AL)</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="als-no-ac">ALS No. (AC) :</label>
+            <input type="text" id="als-no-ac">
           </div>
-          <div>
-            <label class="block text-gray-700 font-medium">LG/Aval/Accept No.</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">      
+          <div class="form-group">
+            <label for="lg-no">LG/Aval/Accept No. :</label>
+            <input type="text" id="lg-no">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <label class="block text-gray-700 font-medium">ALS No. (AC)</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="teletrade-no">Teletrade No. / Equation No. :</label>
+            <input type="text" id="teletrade-no">
           </div>
-          <div>
-            <label class="block text-gray-700 font-medium">Inter LG No. / Stand By LC No.</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+          <div class="form-group">
+            <label for="inter-lg-no">Inter LG No. / Stand By LC No:</label>
+            <input type="text" id="inter-lg-no">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <label class="block text-gray-700 font-medium">Teletrade No. / Equation No.</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rm-no">RM No. :</label>
+            <input type="text" id="rm-no">
           </div>
-          <div>
-            <label class="block text-gray-700 font-medium">เลขที่บัตรประชาชน / เลขทะเบียนพาณิชย์</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+          <div class="form-group">
+            <label for="id-no">เลขที่บัตรประชาชน / เลขทะเบียนพาณิชย์ :</label>
+            <input type="text" id="id-no">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <label class="block text-gray-700 font-medium">RM No.</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-          </div>
-          <div>
-            <label class="block text-gray-700 font-medium">เลขที่บัญชีกระแสรายวัน</label>
-            <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-            border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-            focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+        <div class="form-row full-width">
+          <div class="form-group customer-name-group">
+            <label for="customer-name">ชื่อลูกค้า</label>
+            <input type="text" id="customer-name">
           </div>
         </div>
-      </form>
-    </div>
+        <div class="button-container">
+          <button class="ok">ตกลง</button>
+        </div>
+      </div>
+    </fieldset>
   </div>
-  
+</div>

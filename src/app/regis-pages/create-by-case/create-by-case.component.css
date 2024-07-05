@@ -1,55 +1,290 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Sarabun&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
-/* styles.css or app.component.css */
-/* styles.css or app.component.css */
-/* styles.css or app.component.css */
-/* .container {
+body {
+    font-size: 24px;
+}
+
+.main-content{
+  margin-top: 20px;
+}
+
+legend {
+  font-weight: bold;
+  font-family: "Sarabun", sans-serif;
+  color: #fdfdfd;
+  background-color: #1f4396;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 24px;
+}
+
+.dashed-border {
+  border: 2px dashed #1f4396;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.centerside {
+  color: #ffffff;
+  font-family: "Sarabun", sans-serif;
+  display: flex;
+  justify-content: center; /* จัดกึ่งกลางแนวนอน */
+  align-items: center;
+  border-radius: 10px;
+  border: 1px;
+}
+
+.docall {
+  flex: 2;
+  width: 970px;
+  height: 790px;
+  border-radius: 20px;
+  border: 3px solid #1f4396;
+}
+
+.docall1 {
+  flex: 2;
+  width: 970px;
+  height: 185px;
+  border-radius: 15px;
+  border: 3px solid #1f4396;
+  margin-top: 18px;
+}
+
+/* Additional styles */
+
+.s-m-productType{
+  margin-left: 42px;
+}
+
+.s-productType{
+  display: inline-block;
+  width: 600px; /* Increased width */
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+.s-m-jobType{
+  margin-left: 100px;
+}
+
+.s-jobType{
+  display: inline-block;
+  width: 600px; /* Increased width */
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+.add-jobType {
+  width: 120px;
+  height: 50px;
+  padding-bottom: 10px;
+  margin-left: 20px;
+  background-color: #1f4396;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  float: left; /* or right, depending on your layout needs */
+}
+
+.add-jobType:hover {
+  background-color: #fd7f7f;
+  transform: scale(1.1); /* Example: scale up on hover */
+}
+
+.s-m-customerType{
+  margin-left: 80px;
+}
+
+.s-customerType{
+  display: inline-block;
+  width: 600px; /* Increased width */
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+.add-customerType{
+  width: 120px;
+  height: 50px;
+  padding-bottom: 10px;
+  margin-left: 20px;
+  background-color: #1f4396;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  float: left; /* or right, depending on your layout needs */
+}
+
+.add-customerType:hover {
+  background-color: #fd7f7f;
+  transform: scale(1.1); /* Example: scale up on hover */
+}
+
+/*  */
+
+.s-add-doc{
+  margin-top: 30px;
+  margin-left: 250px;
+}
+
+.add-doc{
+  text-align: center;
+  width: 500px;
+  height: 60px;
+  padding-bottom: 10px;
+  background-color: #1f4396;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  float: left; /* or right, depending on your layout needs */
+}
+
+.add-doc:hover{
+  background-color: #fd7f7f;
+  transform: scale(1.1); /* Example: scale up on hover */
+}
+
+/*  */
+
+.s-report-doc {
+  margin-top: 40px;
+  margin-left: 250px;
+}
+
+.report-doc{
+  text-align: center;
+  width: 500px;
+  height: 60px;
+  padding-bottom: 10px;
+  background-color: #1f4396;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  float: left; /* or right, depending on your layout needs */
+}
+
+.report-doc:hover{
+  background-color: #fd7f7f;
+  transform: scale(1.1); /* Example: scale up on hover */
+}
+
+/*  */
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 24px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+label {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.hr {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+.my-4 {
+    margin-top: 3rem;
+    margin-left: 5px;
+    margin-bottom: 1rem;
+}
+
+.inline-elements {
+    margin-left: 5px;
+    margin-top: 3rem;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    padding: 16px;
-    background-color: #f5f5f5;
-  }
-  
-  mat-card {
-    width: 450px;
-    padding: 16px;
-  }
-  
-  .title {
-    font-size: 1.2em;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  
-  .full-width {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  
-  .full-width-divider {
-    width: 100%;
-    margin: 16px 0;
-  }
-  
-  mat-divider {
-    margin: 0;
-  }
-  
-  button {
-    margin-top: 8px;
-    margin-bottom: 8px;
-    display: block;
-  } */
+}
 
-  .example-form {
-    max-width: 1450px; /* Adjust the max-width to your desired perfect length */
-    margin: 0 auto;
-  }
-  
-  
-  
+/*  */
+
+.custom-checkbox {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 18px; /* Adjust as necessary */
+  user-select: none;
+  padding-left: 35px; /* Adjust for spacing */
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox .checkmark {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  height: 30px;
+  width: 30px;
+  background-color: #eee;
+  border-radius: 5px; /* For rounded corners */
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #1f4396;
+}
+
+.custom-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 10px;
+  top: 7px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.txt-check{
+  margin-top: 5px;
+  margin-left: 10px;
+  font-size: 24px;
+}
+
+/*  */

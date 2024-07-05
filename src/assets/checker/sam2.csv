@@ -1,0 +1,6 @@
+AL,AC,เลขที่บัญชีกระแสรายวัน,LG/Aval/ Accept. No.,Inter LG No./Stand by LC No.,Teledrate No./ Equation No.,RM No.,Customer id,ชื่อลูกค้า,รหัสเอกสาร,ชื่อเอกสาร (อังกฤษ),ชื่อเอกสาร (ไทย),Strong/File Room,จำนวนหน้า
+AL1,AC1,123456,Accept1,LG1,Equation1,RM001,1234567890123,John Doe,12345,ID Card,บัตรประจำตัวประชาชน,S/F,2
+AL2,AC2,654321,Accept2,LG2,Equation2,RM002,1234567890124,Jane Smith,12346,Passport,หนังสือเดินทาง,S/F,3
+AL3,AC3,789012,Accept3,LG3,Equation3,RM003,1234567890125,Michael Brown,12347,Driving License,ใบขับขี่,S/F,1
+AL4,AC4,890123,Accept4,LG4,Equation4,RM004,1234567890126,Sarah Johnson,12348,Bank Statement,ใบแจ้งยอดธนาคาร,S/F,4
+AL5,AC5,901234,Accept5,LG5,Equation5,RM005,1234567890127,Chris Lee,12349,Utility Bill,ใบแจ้งหนี้ค่าสาธารณูปโภค,S/F,5

@@ -4,11 +4,12 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
-import { BatchIdService } from '../../batch-id.service';
+import { BatchIdService } from '../../service/batch-id.service';
 import { MatCardModule } from '@angular/material/card';
 import { BatchDialogComponent } from '../../batch-dialog/batch-dialog.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { InfoCaseComponent } from '../info-case/info-case.component';
 
 @Component({
   selector: 'app-info-batch',
@@ -18,7 +19,8 @@ import { takeUntil } from 'rxjs/operators';
     MatInputModule,
     MatCheckboxModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    InfoCaseComponent
   ],
   templateUrl: './info-batch.component.html',
   styleUrls: ['./info-batch.component.css']

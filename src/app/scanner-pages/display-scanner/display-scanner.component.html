@@ -1,0 +1,22 @@
+<div class="display-box">
+  <div class="container-box">
+    <div class="{{ fitWindow }}" id="dwtcontrolContainer"></div>
+    <ng-container *ngIf="imageSource !== ''; else noImage">
+      <img
+        id="displayedImage"
+        class="{{ fitWindow }}"
+        [src]="'data:image/jpg;base64,' + imageSource"
+        alt="Image"
+      />
+    </ng-container>
+    <ng-template #noImage>
+      <img
+        class="{{ fitWindow }}"
+        src=" "
+        alt="Image"
+      />
+    </ng-template>
+  </div>
+</div>
+
+

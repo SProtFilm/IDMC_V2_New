@@ -1,6 +1,44 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Sarabun&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+.main-content{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+legend {
+  font-weight: bold;
+  font-family: "Sarabun", sans-serif;
+  color: #fdfdfd;
+  background-color: #1f4396;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 24px;
+}
+
+.dashed-border {
+  border: 2px dashed #1f4396;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.centerside {
+  color: #ffffff;
+  font-family: "Sarabun", sans-serif;
+  display: flex;
+  justify-content: center; /* จัดกึ่งกลางแนวนอน */
+  align-items: center;
+  border-radius: 10px;
+  border: 1px;
+}
+
+.docall {
+  flex: 2;
+  width: 2590px;
+  height: 650px;
+  border-radius: 20px;
+  border: 3px solid #1f4396;
+}
 
 .table-case-container {
     border: 1px solid #3B82F6; /* blue-500 */
@@ -89,3 +127,75 @@
     max-height: 90vh; /* Adjust based on your needs */
     overflow-y: auto;
   }
+
+  /*  */
+
+  .button-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 2500px;
+  }
+
+  .button-container-1 {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 1500px;
+  }
+  
+  .button-container-1 button {
+    font-size: 24px;
+    margin: 10px;
+    flex: none;
+    white-space: nowrap;
+    width: 23%; 
+    height: 60px;
+    border: 1px solid;
+  }
+
+  .button-container-2 {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 1500px;
+  }
+  
+  .button-container-2 button {
+    font-size: 24px;
+    margin: 10px;
+    flex: none;
+    white-space: nowrap;
+    width: 18%; 
+    height: 60px;
+    border: 1px solid;
+  }
+
+  /*  */
+
+  .table-control{
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /*  */
+
+  img{
+    width: 20px;
+    height: 20px;
+  }
+
+  /*  */
+  

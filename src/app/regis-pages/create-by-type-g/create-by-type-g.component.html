@@ -6,11 +6,15 @@
     </div>
     <div class="p-4 rounded-b">
       <label for="documentGroup" class="block text-gray-700">กลุ่มเอกสาร :</label>
-      <select id="documentGroup" class="mt-1 block w-full rounded py-2 px-3 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-        <!-- Options here -->
+      <select id="documentGroup" class="mt-1 block w-full rounded py-2 px-3 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      (change)="onDocSelectChange($event)">
+        <option disabled selected value> -- กรุณาเลือกกลุ่มเอกสาร -- </option>
+        <option *ngFor="let mdoclistoption of mDocGroupList" [value]="mdoclistoption.mdocgrp_PK_DOCGROUPCODE">
+          {{ mdoclistoption.mdocgrp_DESCRIPTION }}
+        </option>
       </select>
-    </div>
 
+    </div>
     <!-- Document List -->
     <div class="mt-6">
       <div class="bg-blue-700 text-white p-2 rounded-t">
@@ -20,6 +24,7 @@
         <table class="min-w-full border-collapse">
           <thead>
             <tr class="bg-gray-100">
+              <th class="border px-4 py-2">เลือก</th>
               <th class="border px-4 py-2">ลำดับ</th>
               <th class="border px-4 py-2">รหัสเอกสาร</th>
               <th class="border px-4 py-2">ชื่อเอกสาร (อังกฤษ)</th>
@@ -28,23 +33,25 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Repeat for each document -->
-            <tr>
-              <td class="border px-4 py-2 text-center"><input type="checkbox"></td>
-              <td class="border px-4 py-2 text-center">xxxx</td>
-              <td class="border px-4 py-2 text-center">Lorem Ipsum</td>
-              <td class="border px-4 py-2 text-center">ลอเร็ม อิปซัม</td>
-              <td class="border px-4 py-2 text-center">1</td>
+            <!-- Repeat for each document  แก้ 1--> 
+            <tr *ngFor="let item of items let i = index">
+              <td>
+                <input type="checkbox" [(ngModel)]="item.selected" />
+              </td>
+              <td>{{ i + 1}}</td>
+              <td>{{ item.mdoc_PK_DOCUMENTCODE }}</td>
+              <td>{{ item.mdoc_DESCRIPTIONENG }}</td>
+              <td>{{ item.mdoc_DESCRIPTIONLNG }}</td>
+              <td>{{ item.mdoc_NOOFPAGES }}</td>
             </tr>
-            <!-- Add more rows as needed -->
+
           </tbody>
         </table>
         <div class="flex justify-end mt-4">
-          <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">เพิ่ม</button>
+          <button (click)="addItem()" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add</button>
         </div>
       </div>
     </div>
-
     <!-- Selected Documents -->
     <div class="mt-6">
       <div class="bg-blue-700 text-white p-2 rounded-t">
@@ -52,11 +59,12 @@
       </div>
       <div class="p-4 rounded-b">
         <div class="flex justify-end mb-4">
-          <button class="bg-yellow-500 text-white py-2 px-4 rounded mr-2">ลบ</button>
+          <button class="bg-yellow-500 text-white py-2 px-4 rounded mr-2" (click)="removeItem()">ลบ</button>
         </div>
         <table class="min-w-full border-collapse">
           <thead>
             <tr class="bg-gray-100">
+              <th class="border px-4 py-2">เลือก</th>
               <th class="border px-4 py-2">ลำดับ</th>
               <th class="border px-4 py-2">รหัสเอกสาร</th>
               <th class="border px-4 py-2">ชื่อเอกสาร (อังกฤษ)</th>
@@ -65,19 +73,20 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Repeat for each selected document -->
-            <tr>
-              <td class="border px-4 py-2 text-center"><input type="checkbox"></td>
-              <td class="border px-4 py-2 text-center">xxxx</td>
-              <td class="border px-4 py-2 text-center">Lorem Ipsum</td>
-              <td class="border px-4 py-2 text-center">ลอเร็ม อิปซัม</td>
-              <td class="border px-4 py-2 text-center">1</td>
+            <tr *ngFor="let item of selectedItems; let i = index" [class.selected]="item.selected">
+                <td>
+                    <input type="checkbox" [(ngModel)]="item.selected" />
+                </td>
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.mdoc_PK_DOCUMENTCODE }}</td>
+                <td>{{ item.mdoc_DESCRIPTIONENG }}</td>
+                <td>{{ item.mdoc_DESCRIPTIONLNG }}</td>
+                <td>{{ item.mdoc_NOOFPAGES }}</td>
             </tr>
-            <!-- Add more rows as needed -->
-          </tbody>
+        </tbody>
         </table>
         <div class="flex justify-end mt-4">
-          <button class="bg-green-500 text-white py-2 px-4 rounded mr-2">ตกลง</button>
+          <button  (click)="addItemtoMainTable()" class="bg-green-500 text-white py-2 px-4 rounded mr-2">ตกลง</button>
           <button (click)="onCancel()" class="bg-red-500 text-white py-2 px-4 rounded">ยกเลิก</button>
         </div>
       </div>

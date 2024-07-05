@@ -8,3 +8,6 @@
     padding: 16px; /* Optional: Adjust based on your needs */
   }
   
+td {
+  text-align: center;
+}

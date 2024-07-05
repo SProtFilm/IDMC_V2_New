@@ -1,76 +1,77 @@
-<div class="example-form mt-10 p-4 custom-border"> 
-  <div class="bg-blue-900 text-white p-3 rounded-t-lg">
-    <h2 class="text-xl font-bold">ข้อมูล Case</h2>
-  </div>
-  <div class="p-6 border border-blue-900 rounded-b-lg mb-8"> <!-- Updated mb-4 class -->
-    <form class="space-y-6">
-      <div class="grid grid-cols-2 gap-6">
-        <div>
-          <label class="block text-gray-700 font-medium">ชื่อลูกค้า</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+<div class="main-content">
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>ข้อมูล Case</legend>
+      <div class="form-container">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="als-no-al" class="txt-t">ALS No. (AL)</label>
+            <input type="text" [(ngModel)]="alNum" 
+            [disabled]="localNum || acNum || interLGNum || teleENum || caNum !==''"
+            [style.backgroundColor]="localNum || acNum || interLGNum || teleENum || caNum ? 'lightblue' : 'white'"
+            name="alNumber">
+          </div>
+          <div class="form-group">
+            <label for="day-account-no">LG/Aval/Accept No.</label>
+            <input type="text" [(ngModel)]="localNum" 
+            [disabled]="alNum || acNum || interLGNum || teleENum || caNum !==''"
+            [style.backgroundColor]="alNum || acNum || interLGNum || teleENum || caNum ? 'lightblue' : 'white'"
+            name="localNumber">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="als-no-ac">ALS No. (AC)</label>
+            <input type="text" [(ngModel)]="acNum" 
+            [disabled]="alNum || localNum || interLGNum || teleENum || caNum !==''"
+            [style.backgroundColor]="alNum || localNum || interLGNum || teleENum || caNum ? 'lightblue' : 'white'"
+            name="acNumber">
+          </div>
+          <div class="form-group">
+            <label for="lg-no">Inter LG No. / Stand By LC No.</label>
+            <input type="text" [(ngModel)]="interLGNum" 
+            [disabled]="alNum || localNum || acNum || teleENum || caNum !==''"
+            [style.backgroundColor]="alNum || localNum || acNum || teleENum || caNum ? 'lightblue' : 'white'"
+            name="interNumber">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="teletrade-no">Teletrade No. / Equation No. :</label>
+            <input type="text" [(ngModel)]="teleENum" 
+            [disabled]="alNum || localNum || acNum || interLGNum || caNum !==''"
+            [style.backgroundColor]="alNum || localNum || acNum || interLGNum || caNum ? 'lightblue' : 'white'"
+            name="teleNumber">
+          </div>
+          <div class="form-group">
+            <label for="inter-lg-no">เลขที่บัญชีกระแสรายวัน</label>
+            <input type="text" [(ngModel)]="caNum" 
+            [disabled]="alNum || localNum || acNum || interLGNum || teleENum !==''"
+            [style.backgroundColor]="alNum || localNum || acNum || interLGNum || teleENum ? 'lightblue' : 'white'"
+            name="caNumber">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rm-no">RM No. :</label>
+            <input type="text" [value]="customer?.bblcustNo " readonly>
+          </div>
+          <div class="form-group">
+            <label for="id-no">เลขที่บัตรประชาชน / เลขทะเบียนพาณิชย์ :</label>
+            <input type="text" [value]="customer?.custId" readonly>
+          </div>
+        </div>
+        <div class="form-row full-width">
+          <div class="form-group customer-name-group">
+            <label for="customer-name">ชื่อลูกค้า</label>
+            <input type="text" [value]="customer?.custThaiName" readonly>
+          </div>
+        </div>
+        <div class="button-container">
+          <button type="button" class="ok" (click)="resetInputData()" >reset</button>
+          <button type="button" class="ok-2" (click)="checkTextFields()">ตกลง</button>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-6">
-        <div>
-          <label class="block text-gray-700 font-medium">ALS No. (AL)</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-        </div>
-        <div>
-          <label class="block text-gray-700 font-medium">LG/Aval/Accept No.</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">      
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-6">
-        <div>
-          <label class="block text-gray-700 font-medium">ALS No. (AC)</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-        </div>
-        <div>
-          <label class="block text-gray-700 font-medium">Inter LG No. / Stand By LC No.</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-6">
-        <div>
-          <label class="block text-gray-700 font-medium">Teletrade No. / Equation No.</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-        </div>
-        <div>
-          <label class="block text-gray-700 font-medium">เลขที่บัตรประชาชน / เลขทะเบียนพาณิชย์</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-6">
-        <div>
-          <label class="block text-gray-700 font-medium">RM No.</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-        </div>
-        <div>
-          <label class="block text-gray-700 font-medium">เลขที่บัญชีกระแสรายวัน</label>
-          <input type="text" class="mt-1 block w-full h-10 pl-2 border 
-          border-blue-500 rounded-md shadow-sm focus:border-blue-500 
-          focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-        </div>
-      </div>
-      <div class="flex justify-end mt-4">
-        <button class="bg-green-500 text-white py-2 px-4 rounded mr-2">ตกลง</button>
-      </div>
-    </form>
+    </fieldset>
   </div>
 </div>

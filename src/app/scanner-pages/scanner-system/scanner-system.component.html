@@ -1,25 +1,29 @@
 <fieldset class="docall">
-    <legend>Scanner</legend>
-    <div class="toolbar">
-      <button type="button" class="save-button"><img src="./assets/scanner/save.png" alt="save"></button>
-      <button type="button" ><img src="./assets/scanner/zoom-in.png" alt="zoomIn" ></button>
-      <button type="button" ><img src="./assets/scanner/ZoomOut.png" alt="zoomOut" ></button>
-      <button type="button" ><img src="./assets/scanner/Vertical.png" alt="vertical" ></button>
-      <button type="button" ><img src="./assets/scanner/horizontal.png" alt="horizontal" ></button>
-      <button type="button" ><img src="./assets/scanner/fullPage.png" alt="fullPage" ></button>
-      <button type="button" ><img src="./assets/scanner/imgAsReal.png" alt="imgAsReal" ></button>
-      <button type="button" ><img src="./assets/scanner/move-photo.png" alt="move-photo" ></button>
-      <button type="button" ><img src="./assets/scanner/SelectableMoveable.png" alt="SelectableMoveable" ></button>
-      <button type="button" ><img src="./assets/scanner/rotateLeft.png" alt="rotateLeft" ></button>
-      <button type="button" ><img src="./assets/scanner/rotateRight.png" alt="rotateRight" ></button>
-      <button type="button" ><img src="./assets/scanner/brightUp.png" alt="brightUp" ></button>
-      <button type="button" ><img src="./assets/scanner/brightOriginal.png" alt="brightOriginal" ></button>
-      <button type="button" ><img src="./assets/scanner/brightDown.png" alt="brightDown" ></button>
-      <button type="button" ><img src="./assets/scanner/preview.png" alt="preview" ></button>
-      <button type="button" ><img src="./assets/scanner/changeBlackWhite.png" alt="changeBlackWhite" ></button>
-      <button type="button" ><img src="./assets/scanner/previousPage.png" alt="previous" ></button>
-      <button type="button" ><img src="./assets/scanner/nextPage.png" alt="nextPage" ></button>
-      <button type="button" ><img src="./assets/scanner/rotateLeftOriginal.png" alt="rotateLeftOriginal" ></button>
-      <button type="button" ><img src="./assets/scanner/rotateRightOriginal.png" alt="rotateRightOriginal" ></button>
-    </div>
+  <legend>Scanner</legend>
+  <div class="toolbar">
+    <button type="button" (click)="zoomIn()"><img src="./assets/scanner/zoom-in.png" alt="zoomIn"></button>
+    <button type="button" (click)="zoomOut()"><img src="./assets/scanner/ZoomOut.png" alt="zoomOut"></button>
+    <button type="button" (click)="fitVertical()"><img src="./assets/scanner/Vertical.png" alt="vertical"></button>
+    <button type="button" (click)="fitHorizontal()"><img src="./assets/scanner/horizontal.png" alt="horizontal"></button>
+    <button type="button" (click)="fullPage()"><img src="./assets/scanner/fullPage.png" alt="fullPage"></button>
+    <button type="button" (click)="displayActualSize()"><img src="./assets/scanner/imgAsReal.png" alt="imgAsReal"></button>
+    <button type="button" (click)="toggleMagnifyingGlass()"><img src="./assets/scanner/move-photo.png" alt="move-photo"></button>
+    <button type="button" (click)="enableSelectableZoom()"><img src="./assets/scanner/SelectableMoveable.png" alt="SelectableMoveable"></button>
+    <button type="button" (click)="rotateAllLeft()"><img src="./assets/scanner/rotateLeft.png" alt="rotateLeft"></button>
+    <button type="button" (click)="rotateAllRight()"><img src="./assets/scanner/rotateRight.png" alt="rotateRight"></button>
+    <button type="button" (click)="increaseBrightness()"><img src="./assets/scanner/brightUp.png" alt="brightUp"></button>
+    <button type="button" (click)="resetBrightness()"><img src="./assets/scanner/brightOriginal.png" alt="brightOriginal"></button>
+    <button type="button" (click)="decreaseBrightness()"><img src="./assets/scanner/brightDown.png" alt="brightDown"></button>    
+    <button type="button" (click)="toggleBlackWhite()"><img src="./assets/scanner/changeBlackWhite.png" alt="changeBlackWhite"></button>
+    <button type="button" (click)="previousPage()"><img src="./assets/scanner/previousPage.png" alt="previous"></button>
+    <button type="button" (click)="nextPage()"><img src="./assets/scanner/nextPage.png" alt="nextPage"></button>
+    <button type="button" (click)="rotateOnlyLeft()"><img src="./assets/scanner/rotateLeftOriginal.png" alt="rotateOnlyLeft"></button>
+    <button type="button" (click)="rotateOnlyRight()"><img src="./assets/scanner/rotateRightOriginal.png" alt="rotateOnlyRight"></button>
+  </div>
+
+  <!-- <div class="displayCurrent">
+    <p>{{ currentPageIndex + 1 }}/{{ getTotalPages() }}</p>
+  </div> -->
+
+<app-display-scanner></app-display-scanner>
 </fieldset>

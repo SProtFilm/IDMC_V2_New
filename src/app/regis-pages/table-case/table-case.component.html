@@ -1,133 +1,152 @@
-<div class="container">
-  <div class="bg-blue-200 p-2 rounded-t border border-blue-500">
-    <h1 class="text-blue-800 text-lg font-semibold">รายการ Case</h1>
-  </div>
-  <div class="flex justify-between items-center bg-white p-4 border-t border-blue-500">
-    <button mat-stroked-button (click)="selectAll()">เลือกทั้งหมด</button>
-    <button mat-stroked-button (click)="unselectAll()">ยกเลิกการเลือกทั้งหมด</button>
-    <button mat-stroked-button color="warn">ยกเลิกรายการเอกสาร</button>
-    <button mat-stroked-button (click)="opensearchTcase()">ค้นหา</button>
-    <button mat-stroked-button (click)="openCopyReplaceDialog()">Cppy / Replace</button>
-    <button mat-stroked-button (click)="openTbatchInfo()">ข้อมูล Batch</button>
-    <button mat-stroked-button (click)="openAddRemarkDialog()">หมายเหตุ</button>
-    <button mat-stroked-button (click)="openHistoryRemarkDialog()">รายละเอียดหมายเหตุ</button>
-  </div>
-  <div class="overflow-x-auto border border-blue-500 rounded-b">
-    <table class="min-w-full bg-white border border-collapse border-blue-500">
-      <thead>
-        <tr class="bg-blue-600 text-white">
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              ลำดับ
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              เลือก
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              Copy
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              Replace
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              รหัสเอกสาร
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              ชื่อเอกสาร (อังกฤษ)
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              ชื่อเอกสาร (ไทย)
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              แหล่งที่มา
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              จำนวนหน้า
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              Strong/File Room
-            </div>
-          </th>
-          <th class="py-2 px-4 border border-blue-500">
-            <div class="flex items-center justify-center">
-              <img src="path_to_your_icon.png" alt="View Icon" class="w-4 h-4 mr-2">
-              View
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let case of paginatedCases; let i = index" class="text-center odd:bg-gray-100 even:bg-gray-200">
-          <td class="py-2 px-4 border border-blue-500">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-          <td class="py-2 px-4 border border-blue-500">
-            <input type="checkbox" [(ngModel)]="case.selected" class="form-checkbox">
-          </td>
-          <td class="py-2 px-4 border border-blue-500">
-            <input type="checkbox" class="form-checkbox">
-          </td>
-          <td class="py-2 px-4 border border-blue-500">
-            <input type="checkbox" class="form-checkbox">
-          </td>
-          <td class="py-2 px-4 border border-blue-500">{{ case.docCode }}</td>
-          <td class="py-2 px-4 border border-blue-500">{{ case.docNameEn }}</td>
-          <td class="py-2 px-4 border border-blue-500">{{ case.docNameTh }}</td>
-          <td class="py-2 px-4 border border-blue-500">
-            <select class="form-select">
-              <option value="Paper">{{ case.docSource }}</option>
-              <option value="Copy">Copy</option>
-              <option value="Replace">Repository</option>
-              <option value="Replace">Import</option>
-            </select>
-          </td>
-          <td class="py-2 px-4 border border-blue-500">{{ case.pages }}</td>          
-          <td class="py-2 px-4 border border-blue-500">F</td>
+<div class="main-content">
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>รายการ Case</legend>
+      <div class="button-container">
+        <div class="button-container-1">
+          <button mat-stroked-button (click)="selectAll()">เลือกทั้งหมด</button>
+          <button mat-stroked-button (click)="unselectAll()">
+            ยกเลิกการเลือกทั้งหมด
+          </button>
+          <button mat-stroked-button color="warn">ยกเลิกรายการเอกสาร</button>
+        </div>
+        <div class="button-container-2">
+          <button mat-stroked-button (click)="opensearchTcase()">ค้นหา</button>
+          <button mat-stroked-button (click)="openCopyReplaceDialog()">
+            Cppy / Replace
+          </button>
+          <button mat-stroked-button (click)="openTbatchInfo()">
+            ข้อมูล Batch
+          </button>
+          <button mat-stroked-button (click)="openAddRemarkDialog()">
+            หมายเหตุ
+          </button>
+          <button mat-stroked-button (click)="openHistoryRemarkDialog()">
+            รายละเอียดหมายเหตุ
+          </button>
+        </div>
+      </div>
 
-          <td class="py-2 px-4 border border-blue-500">
-            <button mat-icon-button>
-              <mat-icon>search</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="flex justify-center items-center bg-white p-4 border-t border-blue-500">
-    <div class="flex items-center">
-      <button mat-icon-button (click)="goToPreviousPage()">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
-      <span class="mx-2">Case {{ currentPage }} of {{ totalPages }}</span>
-      <button mat-icon-button (click)="goToNextPage()">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-    </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <div>
+                  <img src="./assets/regis/sort.png" alt="sort" />
+                  ลำดับ
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="./assets/regis/check.png" alt="check" />
+                  เลือก
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="./assets/regis/copy.png" alt="copy" />
+                  Copy
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="path_to_your_icon.png" alt="View Icon" />
+                  Replace
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="path_to_your_icon.png" alt="View Icon" />
+                  รหัสเอกสาร
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="path_to_your_icon.png" alt="View Icon" />
+                  ชื่อเอกสาร (อังกฤษ)
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="path_to_your_icon.png" alt="View Icon" />
+                  ชื่อเอกสาร (ไทย)
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="path_to_your_icon.png" alt="View Icon" />
+                  แหล่งที่มา
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="path_to_your_icon.png" alt="View Icon" />
+                  จำนวนหน้า
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="path_to_your_icon.png" alt="View Icon" />
+                  Strong/File Room
+                </div>
+              </th>
+              <th>
+                <div>
+                  <img src="path_to_your_icon.png" alt="View Icon" />
+                  View
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let items of shareItems; let i = index">
+              <td class="share-pages">{{ i + 1 }}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  [(ngModel)]="items.selected"
+                  class="form-checkbox"
+                />
+              </td>
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td>
+                <input type="checkbox" class="form-checkbox" />
+              </td>
+              <td>{{ items.mdoc_PK_DOCUMENTCODE }}</td>
+              <td>{{ items.mdoc_DESCRIPTIONENG }}</td>
+              <td>{{ items.mdoc_DESCRIPTIONLNG }}</td>
+              <td>
+                <select class="form-select">
+                  <option value="Paper">Paper</option>
+                  <option value="Copy">Copy</option>
+                  <option value="Replace">Repository</option>
+                  <option value="Replace">Import</option>
+                </select>
+              </td>
+              <td>{{ items.mdoc_NOOFPAGES }}</td>
+              <td>{{ items.mdoc_STORETYPE }}</td>
+
+              <td>
+                <button mat-icon-button>
+                  <mat-icon>search</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        class="flex justify-center items-center bg-white p-4 border-t border-blue-500"
+      >
+        <div class="flex items-center">
+          <button mat-icon-button (click)="goToPreviousPage()">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+        </div>
+      </div>
+    </fieldset>
   </div>
 </div>

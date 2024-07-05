@@ -15,7 +15,7 @@ export class CreateByTypeComponent {
 
   openCreateByG() {
     const dialogRef = this.dialog.open(CreateByTypeGComponent, {
-      width: '75%',
+      width: '80%',
       height: 'auto%',
       autoFocus: false,
       disableClose: true // Optional: Set to true if you want to prevent closing the dialog by clicking outside or pressing Escape key

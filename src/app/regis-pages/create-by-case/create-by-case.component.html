@@ -1,50 +1,66 @@
-<div class="example-form mt-10 p-4 custom-border">
-  <div class="border border-blue-900 p-8 rounded-lg mb-8">
-    <div class="bg-blue-800 text-white text-left p-4 rounded-t-lg">
-      <h1 class="text-lg font-semibold">สร้างรายการเอกสารโดย Case</h1>
-    </div>
-    <div class="p-4"> <!-- Changed class from "form" to "p-4" -->
-      <div class="my-4">
-        <label for="productType" class="block text-gray-700">ประเภทผลิตภัณฑ์:</label>
-        <select id="productType" class="w-full border border-gray-300 p-2 rounded">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
+<div class="main-content">
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>สร้างรายการเอกสารโดย Case</legend>
+      <div>
+        <div class="my-4 inline-elements">
+          <label for="productType">ประเภทผลิตภัณฑ์:</label>
+          <div class="s-m-productType">
+            <select id="productType" class="s-productType"
+            (change)="onDocSelectChangeProduct($event)">
+              <option disabled selected value> -- กรุณาเลือกประเภทผลิตภัณฑ์ -- </option>
+              <option *ngFor="let mdocProductTypeOption of productType" [value]="mdocProductTypeOption.mprd_PK_PRODUCTCODE">
+                {{ mdocProductTypeOption.mprd_DESCRIPTIONLNG }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="my-4 inline-elements">
+          <label for="jobType">ประเภทงาน:</label>
+          <div class="s-m-jobType">
+            <select id="jobType" class="s-jobType" (change)="onDocSelectChangeTransaction($event)">
+              <option disabled selected value> -- กรุณาเลือกประเภทงาน -- </option>
+              <option *ngFor="let mdocTransactionListOption of TransactionList" [value]="mdocTransactionListOption.mtrn_PK_TRANSACTIONCODE">
+                {{ mdocTransactionListOption.mtrn_DESCRIPTIONLNG }}
+              </option>
+            </select>
+          </div>
+          <button type="button" class="add-jobType" (click)="addItemtoMainTable()">เพิ่ม</button>
+        </div>
+        <hr class="hr" />
+        <div class="inline-elements">
+          <label class="custom-checkbox checkbox-group">
+            <input type="checkbox" id="add-docCustom" />
+            <span class="checkmark"></span>
+            <div class="txt-check">เพิ่มเอกสารลูกค้า</div>
+          </label>
+        </div>
+        <div class="inline-elements">
+          <label for="customerType">ประเภทลูกค้า:</label>
+          <div class="s-m-customerType">
+            <select id="customerType" class="s-customerType" (change)="onDocSelectChange($event)">
+              <option disabled selected value> -- กรุณาเลือกประเภทลูกค้า -- </option>
+              <option *ngFor="let mdocCustTypeOption of mDocCustType" [value]="mdocCustTypeOption.mcustty_PK_CUSTOMERTYPE">
+                {{ mdocCustTypeOption.mcustty_DESCRIPTION }}
+              </option>
+            </select>
+          </div>
+          <button type="button" class="add-customerType" (click)="addItemtoMainTable()">เพิ่ม</button>
+        </div>
+        <hr class="hr" />
+        <div class="s-add-doc">
+          <button (click)="openAddDocDialog()" class="add-doc">
+            เพิ่มเอกสาร
+          </button>
+        </div>
       </div>
-      <div class="my-4">
-        <label for="jobType" class="block text-gray-700">ประเภทงาน:</label>
-        <select id="jobType" class="w-full border border-gray-300 p-2 rounded">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-      <button type="button" class="bg-gray-200 text-gray-700 px-4 py-2 rounded shadow">เพิ่ม</button>
-
-      <hr class="my-6 border-gray-300" />
-
-      <div class="flex items-center">
-        <input type="checkbox" id="addCustomerDoc" class="mr-2">
-        <label for="addCustomerDoc" class="text-gray-700">เพิ่มเอกสารลูกค้า</label>
-      </div>
-      <div class="my-4">
-        <label for="customerType" class="block text-gray-700">ประเภทลูกค้า:</label>
-        <select id="customerType" class="w-full border border-gray-300 p-2 rounded">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-      <button type="button" class="bg-gray-200 text-gray-700 px-4 py-2 rounded shadow">เพิ่ม</button>
-
-      <hr class="my-6 border-gray-300" />
-      
-      <div class="text-center p-4">
-        <button (click)="openAddDocDialog()" class="bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-20 rounded border border-blue-900">
-          เพิ่มเอกสาร
-        </button>
-      </div>
-    </div>
+    </fieldset>
   </div>
 </div>
+
+<fieldset class="docall1">
+  <legend>สร้างรายการเอกสารโดยกลุ่มเอกสาร Case</legend>
+  <div class="s-report-doc">
+    <button (click)="openCreateByG()" class="report-doc">รายงานเอกสาร</button>
+  </div>
+</fieldset>

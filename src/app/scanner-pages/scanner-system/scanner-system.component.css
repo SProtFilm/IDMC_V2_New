@@ -1,7 +1,7 @@
 .docall {
   flex: 2;
   width: 1200px;
-  height: 1300px;
+  height: 1400px;
   border-radius: 20px;
   border: 3px solid #1f4396;
   margin-left: 15px;
@@ -21,11 +21,11 @@ legend {
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  background-color: #ccc;
+  background-color: #dbdbdb;
   padding: 10px;
   border-radius: 10px;
   justify-content: center;
-  width: 97%;
+  width: 1025px;
 }
 .toolbar button {
   width: 50px;
@@ -50,7 +50,7 @@ legend {
 .toolbar button:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   transform: translateY(-1px);
-  background-color: #a7abc8; /* สีเหลือง */
+  background-color: #ff0000; /* สีเหลือง */
   color: #1f4396;
 }
 .toolbar button:active {
@@ -62,4 +62,8 @@ legend {
 
 .toolbar .save-button {
   margin-right: 35px; /* Increase the right margin for the save button */
+}
+
+.displayCurrent{
+  text-align: center;
 }

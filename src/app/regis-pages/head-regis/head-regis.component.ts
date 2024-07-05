@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
-import { BatchIdService } from '../../batch-id.service';
+import { BatchIdService } from '../../service/batch-id.service';
 import { BatchDialogModule } from '../../batch-dialog/batch-dialog.module';
 import { BatchDialogComponent } from '../../batch-dialog/batch-dialog.component';
 import { ViewBatchComponent } from '../view-batch/view-batch.component';

@@ -1,198 +1,224 @@
-import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
+  ViewChildren,
+  QueryList,
   ElementRef,
   OnInit,
-  QueryList,
-  ViewChildren,
+  OnDestroy,
+  Input,
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatToolbarModule } from '@angular/material/toolbar';
-
-interface TreeNode {
-  name: string;
-  type: 'folder' | 'file';
-  children?: TreeNode[];
-  expanded?: boolean;
-  checked?: boolean;
-}
+import { DataService } from '../../service/data.service'; // Adjust the path based on your actual DataService location
+import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-document-list',
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    FormsModule,
-    MatCheckboxModule,
-    MatGridListModule,
-    MatIconModule,
-    MatDividerModule,
-    MatButtonModule,
-    CommonModule,
-    ReactiveFormsModule,
-    MatToolbarModule,
-  ],
+  styleUrls: ['./document-list.component.css'],
   templateUrl: './document-list.component.html',
-  styleUrl: './document-list.component.css',
+  standalone: true,
+  imports: [CommonModule],
 })
-export class DocumentListComponent implements OnInit, AfterViewInit {
-  constructor(private dialog: MatDialog) {}
-  selectedFunctionType: string = '';
-  selectedDocumentDetail: string = '';
-  treeData: TreeNode[] = [
-    {
-      name: 'BBL',
-      type: 'folder',
-      expanded: true,
-      checked: false,
-      children: [
-        {
-          name: 'ABBBBYYMMDDNNNN',
-          type: 'folder',
-          checked: false,
-          expanded: true,
-          children: [
-            {
-              name: 'Case 1',
-              type: 'folder',
-              checked: false,
-              expanded: true,
-              children: [
-                {
-                  name: 'บัตร',
-                  type: 'folder',
-                  checked: false,
-                  expanded: true,
-                  children: [
-                    { name: 'Page1', type: 'file', checked: false },
-                    { name: 'Page2', type: 'file', checked: false },
-                    { name: 'Page3', type: 'file', checked: false },
-                  ],
-                },
-              ],
-            },
-            {
-              name: 'Case 2',
-              type: 'folder',
-              checked: false,
-              expanded: true,
-              children: [
-                {
-                  name: 'สินเชื่อ',
-                  type: 'folder',
-                  checked: false,
-                  expanded: true,
-                  children: [
-                    { name: 'Page1', type: 'file', checked: false },
-                    { name: 'Page2', type: 'file', checked: false },
-                    { name: 'Page3', type: 'file', checked: false },
-                  ],
-                },
-              ],
-            },
-            {
-              name: 'Case 3',
-              type: 'folder',
-              checked: false,
-              expanded: true,
-              children: [
-                {
-                  name: 'สินเชื่อ',
-                  type: 'folder',
-                  checked: false,
-                  expanded: true,
-                  children: [
-                    { name: 'Page1', type: 'file', checked: false },
-                    { name: 'Page2', type: 'file', checked: false },
-                    { name: 'Page3', type: 'file', checked: false },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ];
+export class DocumentListComponent implements OnInit, OnDestroy {
+  @ViewChildren('checkboxes') checkboxes!: QueryList<ElementRef>;
+  checker: ElementRef[] = [];
+  areAllChecked = false;
+  @Input() documentdata: DocumentData[] = [];
+  @Input() imageSource: string = '';
+  @Input() Page: number = 0;
+  private documentDataSubscription!: Subscription;
+  private imageSourceSubscription!: Subscription;
 
-  @ViewChildren('checkboxes') checkboxRefs!: QueryList<ElementRef>;
+  numFileScan: FileScan[] = [];
+  private currentCheckboxIndex: number = 0;
+  private scanningBarcode: string | null = null; // Track the current barcode being scanned
 
-  ngOnInit() {
-    // We shouldn't update parent checkbox status here since ViewChildren are not initialized yet
+  constructor(
+    private dataservice: DataService
+  ) {
+    this.documentdata = this.dataservice.getDocumentData();
+    this.Page = this.dataservice.getPageData();
   }
 
-  ngAfterViewInit() {
-    // Now checkboxRefs should be available
-    this.updateParentCheckboxStatus(this.treeData);
+  ngOnInit(): void {
+    this.documentDataSubscription = this.dataservice.documentData$.subscribe(
+      (newData) => {
+        this.documentdata = newData;
+        if (this.dataservice.getDocumentData().length !== 0) {
+          this.initFileScanData();
+        }
+      }
+    );
+    this.imageSourceSubscription = this.dataservice.imgSource$.subscribe(
+      (newImg) => {
+        if (this.dataservice.getDocumentData().length > 0) {
+          setTimeout(() => {
+            this.addCheckTolist();
+            this.check();
+          }, 200);
+        }
+      }
+    );
   }
 
-  toggleNode(node: TreeNode) {
-    if (node.type === 'folder') {
-      node.expanded = !node.expanded;
+  ngOnDestroy(): void {
+    this.documentDataSubscription.unsubscribe();
+    this.imageSourceSubscription.unsubscribe();
+  }
+
+  addNewDataDoc(barcode: string, pages: string[]) {
+    // Clear previous data
+    this.numFileScan = [];
+    // Set current scanning barcode
+    this.scanningBarcode = barcode;
+    // Create FileScan object
+    let filedoc: FileScan = {
+      barcode: barcode,
+      pages: pages,
+      status: 'Pending',
+      checkbox: [],
+    };
+    // Add to numFileScan
+    this.numFileScan.push(filedoc);
+  }  
+
+  addCheckTolist() {
+    if (this.numFileScan.length > 0 && this.numFileScan[0].pages != null) {
+      this.checker = this.checkboxes.toArray();
+      let currentBox = 0;
+      for (let item of this.numFileScan) {
+        let itemIndex = this.numFileScan.indexOf(item);
+        for (let index = 0; index < item.pages.length; index++) {
+          this.numFileScan[itemIndex].checkbox.push(this.checker[currentBox]);
+          currentBox++;
+        }
+      }
+      this.checker = [];
     }
   }
 
-  onCheckboxChange(node: TreeNode) {
-    this.checkAllChildren(node, node.checked!);
-    this.updateParentCheckboxStatus(this.treeData);
+  initFileScanData(): void {
+    // Initialize numFileScan based on this.documentdata
+    this.numFileScan = this.documentdata.map(doc => ({
+      barcode: doc.barcode,
+      pages: doc.pages,
+      status: 'Pending',
+      checkbox: [],
+      detailsOpen: true
+    }));
   }
 
-  checkAllChildren(node: TreeNode, checked: boolean) {
-    node.children?.forEach((child) => {
-      child.checked = checked;
-      if (child.type === 'folder') {
-        this.checkAllChildren(child, checked);
+  listCheckedCheckboxes(barcode: string, pages: string[]): void {
+    // Check if the scanned barcode matches the currently tracked barcode for scanning both sides
+    if (this.scanningBarcode && barcode !== this.scanningBarcode) {
+      // If a different barcode is detected, stop scanning both sides
+      this.scanningBarcode = null;
+      // Clear numFileScan
+      this.numFileScan = [];
+    }
+  
+    if (this.scanningBarcode === barcode) {
+      // Only proceed if scanningBarcode matches the current barcode
+      this.addNewDataDoc(barcode, pages);
+      this.addCheckTolist();
+      this.check();
+      this.dataservice.setImageData(this.imageSource);
+    } else {
+      // Handle logic when a different barcode is detected or scanning is not active
+      // Example: this.handleDifferentBarcodeDetection();
+    }
+  }
+
+  check() {
+    let headbox: HTMLInputElement[] = [];
+    for (let item of this.numFileScan) {
+      let itemIndex = this.numFileScan.indexOf(item);
+      const element = document.getElementById(
+        this.numFileScan[itemIndex].barcode
+      ) as HTMLInputElement;
+      headbox.push(element);
+      if (
+        this.numFileScan[itemIndex].checkbox.length ===
+        this.numFileScan[itemIndex].checkbox.filter(
+          (value) => value.nativeElement.checked
+        ).length
+      ) {
+        this.numFileScan[itemIndex].status = 'Completed';
+        element.checked = true;
+      } else {
+        this.numFileScan[itemIndex].status = 'Pending';
+        element.checked = false;
       }
-    });
+    }
+    const headcheck = document.getElementById('headerbox') as HTMLInputElement;
+    if (headbox.length === headbox.filter((value) => value.checked).length) {
+      headcheck.checked = true;
+    } else {
+      headcheck.checked = false;
+    }
+    headbox = [];
+  }  
+
+  getTotalBarcodes(): number {
+    return this.numFileScan.length;
   }
 
-  updateParentCheckboxStatus(nodes: TreeNode[]) {
-    nodes.forEach((node) => {
-      if (node.type === 'folder') {
-        if (node.children && node.children.length) {
-          node.children.forEach((child) => {
-            this.updateParentCheckboxStatus([child]);
-          });
-          const allChildrenChecked = node.children.every(
-            (child) => child.checked
-          );
-          const someChildrenChecked = node.children.some(
-            (child) => child.checked
-          );
-          node.checked = allChildrenChecked;
-          const checkbox = this.checkboxRefs.find(
-            (ref: {
-              nativeElement: { getAttribute: (arg0: string) => string };
-            }) =>
-              ref.nativeElement.getAttribute('ng-reflect-model') === node.name
-          );
-          if (checkbox) {
-            checkbox.nativeElement.indeterminate =
-              !allChildrenChecked && someChildrenChecked;
-          } else {
-            console.warn(`Checkbox element not found for node: ${node.name}`);
-          }
-        }
-      }
+  getTotalPages(): number {
+    let totalPages = 0;
+    this.documentdata.forEach((doc) => {
+      totalPages += doc.pages.length;
     });
+    return totalPages;
   }
 
-  // openDialog(): void {
-  //   this.dialog.open(DialogComponent, { width: '500px' });
-  // }
-  // openviewdivision(): void {
-  //   this.dialog.open(ViewdivisionComponent, { width: '80%' ,height:'650px' });
-  // }
+  setImageSource(pageIndex: number): void {
+    if (
+      this.numFileScan.length > 0 &&
+      this.numFileScan[0].pages.length > pageIndex
+    ) {
+      this.imageSource = this.numFileScan[0].pages[pageIndex];
+      this.dataservice.setImageData(this.imageSource);
+    }
+  }
+
+  updateCheckboxState(index: number, checked: boolean): void {
+    if (
+      this.numFileScan.length > 0 &&
+      this.numFileScan[0].checkbox.length > index
+    ) {
+      this.numFileScan[0].checkbox[index].nativeElement.checked = checked;
+    }
+  }
+
+  previousPage(): void {
+    if (this.Page > 0) {
+      // Uncheck the current page
+      this.updateCheckboxState(this.Page, false);
+      this.Page--; // Check the new current page
+      this.updateCheckboxState(this.Page, true);
+      this.setImageSource(this.Page); // Update the image source
+    }
+  }
+
+  nextPage(): void {
+    if (this.Page < this.getTotalPages() - 1) {
+      // Uncheck the current page
+      this.updateCheckboxState(this.Page, false);
+      this.Page++; // Check the new current page
+      this.updateCheckboxState(this.Page, true);
+      this.setImageSource(this.Page); // Update the image source
+    }
+  }
+}
+
+interface FileScan {
+  barcode: string;
+  pages: string[];
+  status: string;
+  checkbox: ElementRef[];
+  tag?: string;
+}
+
+interface DocumentData {
+  barcode: string;
+  pages: string[];
 }

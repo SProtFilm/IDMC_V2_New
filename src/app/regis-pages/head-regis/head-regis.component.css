@@ -2,18 +2,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
   white-space: nowrap;
   overflow-x: hidden;
-  width: 100%; /* Set the width to 100% */
+  width: 100%;
 }
 
 .button-container button {
-  margin: 2px;
+  margin: 3px;
   flex: none;
   white-space: nowrap;
-  width: 12%; /* Adjust the width percentage as needed */
+  width: 14%; 
+  height: 55px;
   border: 1px solid;
 }
 
+.separator {
+  height: 30px;
+  width: 1px;
+  background-color: black;
+  margin: 0 10px;
+}

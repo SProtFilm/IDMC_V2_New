@@ -66,6 +66,10 @@ mat-sidenav-container {
   box-shadow: 0 10px 15px rgba(23, 62, 238, 0.358);
 }
 
+.container{
+  margin-left: 450px;
+}
+
 /* Adjustments for the content to avoid overlap */
 .content {
   padding-top: 80px; /* Adjust this value to your toolbar height + some padding */

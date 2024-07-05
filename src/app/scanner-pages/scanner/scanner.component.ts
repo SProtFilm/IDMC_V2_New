@@ -9,6 +9,7 @@ import { HeadScannerComponent } from '../head-scanner/head-scanner.component';
 import { DocumentListComponent } from '../document-list/document-list.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ScannerSystemComponent } from '../scanner-system/scanner-system.component';
+import { DisplayScannerComponent } from '../display-scanner/display-scanner.component';
 
 @Component({
   selector: 'app-scanner',
@@ -23,7 +24,8 @@ import { ScannerSystemComponent } from '../scanner-system/scanner-system.compone
     SideBarComponent,
     HeadScannerComponent,
     DocumentListComponent,
-    ScannerSystemComponent
+    ScannerSystemComponent,
+    DisplayScannerComponent
   ],
   templateUrl: './scanner.component.html',
   styleUrl: './scanner.component.css'
@@ -33,4 +35,5 @@ export class ScannerComponent {
   collapsed = signal(false)
 
   sidenavWidth = computed(() => this.collapsed() ? '64px' : '200px');
+  
 }

@@ -1,25 +1,55 @@
-.search-container {
-    border: 1px solid #2a4d8c;
+.main-content{
+  margin-top: 20px;
+}
+
+legend {
+    font-weight: bold;
+    font-family: "Sarabun", sans-serif;
+    color: #fdfdfd;
+    background-color: #1f4396;
     border-radius: 10px;
-    padding: 100px;
-    max-width: 700px;
-    margin: 20px auto 0;
-    font-family: Arial, sans-serif;
-    position: relative;
+    padding: 10px;
+    font-size: 28px;
   }
   
-  .search-header {
-    background-color: #2a4d8c;
-    color: white;
-    text-align: center;
+  .docall {
+    flex: 2;
+    width: 850px;
+    height: 670px;
+    border-radius: 20px;
+    border: 3px solid #1f4396;
+  }
+
+  /*  */
+
+  .button-container{
+    margin-left: 730px;
+  }
+
+  .btn-search{
+    margin-top: 5px;
+    width: 120px;
+    height: 50px;
+    padding-bottom: 10px;
+    background-color: #1f4396;
+    color: #fff;
+    border: none;
     border-radius: 5px;
-    position: absolute;
-    top: -1px;
-    left: 20px;
-    transform: translateY(-50%);
-    padding: 5px 20px;
-    font-size: 16px;
-    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    float: left; /* or right, depending on your layout needs */
+    font-size: 20px;
+  }
+
+  .btn-search:hover{
+    background-color: #fd7f7f;
+    transform: scale(1.1); /* Example: scale up on hover */
+  }
+
+  /*  */
+
+  label{
+    font-size: 20px;
   }
   
   .form-group {
@@ -39,7 +69,10 @@
   }
   
   .form-control {
-    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 50px;
+    width: 600px;
     padding: 12px;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -49,25 +82,12 @@
   
   .form-checkbox {
     position: absolute;
-    left: 10px;
-    top: 50%;
+    left: 60px;
+    top: 65%;
     transform: translateY(-50%);
     margin: 0;
     width: 20px;
     height: 20px;
   }
   
-  .btn {
-    background-color: #2a4d8c;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .btn:hover {
-    background-color: #1e3a6e;
-  }
   

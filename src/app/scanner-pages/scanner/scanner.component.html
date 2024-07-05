@@ -1,6 +1,11 @@
 <mat-toolbar class="mat-elevation-z3">
   <a href="signin">
-    <img src="assets/toolbar/bangkok_bank.png" alt="BangkokBank" class="toolbar-image" id="shift-right">
+    <img
+      src="assets/toolbar/bangkok_bank.png"
+      alt="BangkokBank"
+      class="toolbar-image"
+      id="shift-right"
+    />
   </a>
   <div class="title-container">
     <div class="title">
@@ -13,10 +18,12 @@
 <div class="head-scanner-container">
   <app-head-scanner></app-head-scanner>
 </div>
-
-<div class="document-list-container">
-  <app-document-list></app-document-list>
-  <app-scanner-system></app-scanner-system>
+<div class="container">
+  <div class="document-list-container">
+    <app-document-list></app-document-list>
+    <app-scanner-system></app-scanner-system>
+  </div>
 </div>
 
+<!-- side bar -->
 <app-side-bar></app-side-bar>

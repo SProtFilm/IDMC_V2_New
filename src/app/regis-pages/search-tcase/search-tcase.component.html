@@ -1,26 +1,23 @@
-<div class="dialog-content">
-  <div class="flex items-center bg-blue-900 text-white p-3 rounded-t-lg">
-    <h2 class="text-xl font-bold">ค้นหา</h2>
+<div class="title-container">
+  <div class="title">
+    <h1>ค้นหา</h1>
   </div>
-  <mat-grid-list cols="2" rowHeight="650px" gutterSize="16px">
-    <!-- First Column -->
-    <mat-grid-tile>
-      <app-s-case-info></app-s-case-info>
-    </mat-grid-tile>
-  
+</div>
+<div class="spacer"></div>
+
+<div class="search-process">
+  <!-- First Column -->
+  <app-s-case-info></app-s-case-info>
+  <div class="">
     <!-- Second Column -->
-    <mat-grid-tile>
-      <app-s-doc></app-s-doc>
-    </mat-grid-tile>
-  </mat-grid-list>
-
-  <app-selection-list></app-selection-list>
-
-  <app-selected-list></app-selected-list>
-
-  <div class="flex justify-end mt-4 space-x-4">
-    <button class="bg-lime-300 text-gray-900 font-bold py-2 px-4 rounded">ตกลง</button>
-    <button (click)="onCancel()" class="bg-red-500 text-white py-2 px-4 rounded">ยกเลิก</button>
+    <app-s-doc></app-s-doc>
   </div>
-  
+</div>
+<app-selection-list></app-selection-list>
+
+<app-selected-list></app-selected-list>
+
+<div>
+  <button>ตกลง</button>
+  <button (click)="onCancel()">ยกเลิก</button>
 </div>

@@ -1,71 +1,119 @@
 <div class="main-content">
-<div class="sidebar">
-<fieldset class="docall">
-    <legend>รายการเอกสาร</legend>
-    <div class="blox">
-      <!-- Document Tree goes here -->
-      <ul>
-        <li *ngFor="let node of treeData">
-          <div class="node-container">
-            <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
-              {{ node.expanded ? '-' : '+' }}
-            </button>
-            <input #checkboxes type="checkbox" [(ngModel)]="node.checked" (change)="onCheckboxChange(node)">
-            <mat-icon>{{ node.type === 'folder' ? 'folder' : 'description' }}</mat-icon>
-            <span class="node-name" [ngClass]="{ 'folder': node.type === 'folder', 'file': node.type === 'file' }">
-              {{ node.name }}
-            </span>
-          </div>
-          <ul *ngIf="node.type === 'folder' && node.expanded">
-            <ng-container *ngTemplateOutlet="treeTemplate; context: { $implicit: node.children }"></ng-container>
-          </ul>
-        </li>
-      </ul>
-      <ng-template #treeTemplate let-treeData>
-        <ul>
-          <li *ngFor="let node of treeData">
-            <div class="node-container">
-              <button (click)="toggleNode(node)" *ngIf="node.type === 'folder'">
-                {{ node.expanded ? '-' : '+' }}
-              </button>
-              <input #checkboxes type="checkbox" [(ngModel)]="node.checked" (change)="onCheckboxChange(node)">
-              <mat-icon>{{ node.type === 'folder' ? 'folder' : 'description' }}</mat-icon>
-              <span class="node-name" [ngClass]="{ 'folder': node.type === 'folder', 'file': node.type === 'file' }">
-                {{ node.name }}
-              </span>
+  <div class="sidebar">
+    <fieldset class="docall">
+      <legend>รายการเอกสาร</legend>
+      <div class="blox">
+        <!-- Document Tree goes here -->
+        <div class="tree-checkbox">
+          <div>
+            <div class="container head">
+              <div class="headcheck">
+                <input type="checkbox" id="headerbox" />
+                <span class="checkmark"></span>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="#000000"
+              >
+                <path
+                  d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"
+                />
+              </svg>
+              BBL
             </div>
-            <ul *ngIf="node.type === 'folder' && node.expanded">
-              <ng-container *ngTemplateOutlet="treeTemplate; context: { $implicit: node.children }"></ng-container>
-            </ul>
-          </li>
-        </ul>
-      </ng-template>
-    </div>
-    <div class="buttons">
-      <div class="button-row">
-        <button class="btn"><span class="btn-icon"><img src="./assets/scanner/previousPage.png" alt="Previous"></span>ย้อนกลับ</button>
-        <button class="btn">หน้าต่อไป<span class="btn-icon"><img src="./assets/scanner/nextPage.png" alt="Next"></span></button>
-    </div>
-      <div class="button-row1">
+          </div>
+          <ul class="tree">
+            <li *ngFor="let item of numFileScan; let idx = index" class="head">
+              <details>
+                <summary>
+                  <div class="container">
+                    <input type="checkbox" [id]="item.barcode" disabled />
+                    <span class="checkmark"></span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24px"
+                      viewBox="0 -960 960 960"
+                      width="24px"
+                      fill="#000000"
+                    >
+                      <path
+                        d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"
+                      />
+                    </svg>
+                    {{ item.barcode }}:
+                    <p class="{{ item.status }}">{{ item.status }}</p>
+                  </div>
+                </summary>
+                <ul>
+                  <li *ngFor="let page of item.pages; let idx2 = index">
+                    <label class="container" (click)="$event.stopPropagation()">
+                      <input
+                        type="checkbox"
+                        [id]="'page_' + idx + '_' + idx2"
+                        #checkboxes
+                      />
+                      <span class="checkmark"></span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 -960 960 960"
+                        width="24px"
+                        fill="#000000"
+                      >
+                        <path
+                          d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"
+                        />
+                      </svg>
+                      <p class="texthead" (click)="setImageSource(idx2)">
+                        Page {{ idx2 + 1 }}
+                      </p>
+                    </label>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="buttons">
+        <div class="button-row">
+          <button class="btn" (click)="previousPage()">
+            <span class="btn-icon">
+              <img src="./assets/scanner/previousPage.png" alt="Previous" />
+            </span>
+            Back
+          </button>
+          <p>{{ Page + 1 }}/{{ getTotalPages() }}</p>
+          <button class="btn" (click)="nextPage()">
+            Next page
+            <span class="btn-icon">
+              <img src="./assets/scanner/nextPage.png" alt="Next" />
+            </span>
+          </button>
+        </div>
+        <div class="button-row1">
           <button class="btn">หมายเหตุ</button>
           <button class="btn">รายละเอียดหมายเหตุ</button>
           <button class="btn">ข้อมูล Batch</button>
-      </div>
-      <div class="button-row2">
+        </div>
+        <div class="button-row2">
           <button class="btn">Replace</button>
           <button class="btn">Copy</button>
           <button class="btn">Import File</button>
+        </div>
       </div>
+    </fieldset>
   </div>
-  </fieldset>
-</div>
 </div>
 
 <fieldset class="docall1">
   <legend>ยอดรวมเอกสาร</legend>
-    <div>
-      <p>จำนวนหน้า</p>
-      <p>ยอดเอกสาร</p>
-    </div>
-
+  <div>
+    <p>จำนวน Barcode: {{ getTotalBarcodes() }}</p>
+    <p>จำนวนหน้า: {{ getTotalPages() }}</p>
+    <p>ยอดเอกสาร:</p>
+  </div>
 </fieldset>

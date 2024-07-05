@@ -1,3 +1,126 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Sarabun&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+.main-content{
+  margin-top: 20px;
+}
+
+legend {
+  font-weight: bold;
+  font-family: "Sarabun", sans-serif;
+  color: #fdfdfd;
+  background-color: #1f4396;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 28px;
+}
+
+.dashed-border {
+  border: 2px dashed #1f4396;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.centerside {
+  color: #ffffff;
+  font-family: "Sarabun", sans-serif;
+  display: flex;
+  justify-content: center; /* จัดกึ่งกลางแนวนอน */
+  align-items: center;
+  border-radius: 10px;
+  border: 1px;
+}
+
+.docall {
+  flex: 2;
+  width: 1250px;
+  height: 670px;
+  border-radius: 20px;
+  border: 3px solid #1f4396;
+}
+
+/*  */
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 90%; /* Ensures the input takes the full width of its container */
+  height: 50px;
+  padding: 10px; /* Increases the padding for larger input fields */
+  border: 1px solid #000000;
+  opacity: 75%;
+  border-radius: 4px;
+  font-size: 24px; /* Increases the font size for better readability */
+  text-align: left; /* Aligns text to the left */
+  vertical-align: top; /* Aligns text to the top */
+  box-sizing: border-box; /* Ensures padding does not affect the element's width */
+}
+
+/* Specific styles for customer-name field */
+.customer-name-group input {
+  width: 95%; /* Ensures the input takes the full width of its container */
+  height: 100px;
+  padding: 10px; /* Increases the padding for larger input fields */
+  border: 1px solid #000000;
+  opacity: 75%;
+  border-radius: 4px;
+  font-size: 48px; /* Increases the font size for better readability */
+  text-align: left; /* Aligns text to the left */
+  vertical-align: top; /* Aligns text to the top */
+  box-sizing: border-box; /* Ensures padding does not affect the element's width */
+}
+
+/*  */
+
+label{
+  font-size: 24px;
+}
+/*  */
+
+.button-container{
+  margin-left: 1030px;
+}
+
+.ok{
+  margin-top: 5px;
+  width: 120px;
+  height: 50px;
+  padding-bottom: 10px;
+  background-color: #1f4396;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  float: left; /* or right, depending on your layout needs */
+  font-size: 20px;
+}
+
+.ok:hover{
+  background-color: #fd7f7f;
+  transform: scale(1.1); /* Example: scale up on hover */
+}
+
+/*  */
