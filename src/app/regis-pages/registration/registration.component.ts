@@ -13,8 +13,6 @@ import { CreateByCaseComponent } from '../create-by-case/create-by-case.componen
 import { CreateByTypeComponent } from '../create-by-type/create-by-type.component';
 import { SideBarComponent } from '../../component/side-bar/side-bar.component';
 
-
-
 @Component({
   selector: 'app-registration',
   standalone: true,
